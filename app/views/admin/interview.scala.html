@@ -1,0 +1,17 @@
+@(form: Form[models.Interview],child: models.Child)
+
+@main("addchildinterview"){
+	<div>
+		@helper.form(routes.Admin.newInterview) {
+			<h1>Child Information</h1> 
+	            <label>Conducted On: </label>
+	            	<input type="conductedOn" name="conductedOn" placeholder="conductedOn" value="@form("conductedOn").value"><br>
+	            <label>Transcript: </label>
+	            	<textarea type="conductedOn" name="conductedOn" placeholder="transcript" value="@form("conductedOn").value"></textarea>
+	            <br>
+	            <button type="submit">Next</button>
+	        
+			
+		}
+	</div>
+}

@@ -3,23 +3,14 @@
 @main("addchild"){
 	<div>
 		@helper.form(routes.Admin.newChild) {
-			<h1>Child Information</h1>
-			
-			 <p>
-	            <input type="name" name="name" placeholder="Name" value="@form("name").value">
-	        </p>
-	        <p>
-	            <input type="age" name="age" value="@form("age").value">
-	        </p>
-	        <p>
-	            <input type="dob" name="dob" value="@form("dob").value">
-	        </p>
-	        <p>
-	            <input type="gender" name="gender" value="@form("gender").value">
-	        </p>
-	        <p>
+			<h1>Child Information</h1> 
+	            <label>Name: </label><input type="name" name="name" placeholder="Name" value="@form("name").value"><br>
+	            <label>Age:</label><input type="age" name="age" value="@form("age").value"><br>
+	            <p><i>aproximate age if DOB is not known</i></p>
+	            <label>DOB: </label><input type="dob" name="dob" value="@form("dob").value"><br>
+	            <label>Name: </label><input type="gender" name="gender" value="@form("gender").value"><br>
 	            <button type="submit">Next</button>
-	        </p>
+	        
 			
 		}
 	</div>

@@ -9,6 +9,7 @@ GET		/logout						controllers.Application.logout()
 GET		/home						controllers.Admin.index()
 POST	/authenticate				controllers.Application.authenticate()
 POST	/child						controllers.Admin.newChild()
+POST	/child/interview			controllers.Admin.newInterview()
 
 
 # Map static resources from the /public folder to the /assets URL path

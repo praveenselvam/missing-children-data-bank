@@ -24,4 +24,14 @@ public class Interview extends Model{
 	
 	@ManyToOne
 	public Child child;
+	
+	
+	public static Interview create(Date on,String trans,Child kid)
+	{
+		Interview i = new Interview();
+		i.conductedOn = on; i.interviewTranscript = trans;
+		i.child = kid;
+		i.save();
+		return i;
+	}
 }

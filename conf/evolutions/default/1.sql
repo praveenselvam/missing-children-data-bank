@@ -11,6 +11,9 @@ create table child (
   photo_path                varchar(255),
   resides_at_id             bigint,
   gender                    varchar(255),
+  is_interview_dirty        boolean,
+  is_prevous_homes_dirty    boolean,
+  is_language_dirty         boolean,
   constraint pk_child primary key (id))
 ;
 

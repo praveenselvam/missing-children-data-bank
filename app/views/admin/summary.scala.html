@@ -1,0 +1,14 @@
+@(child: models.Child)
+
+@main("childSummary"){
+	<div>
+		<p>@child.name</p>
+		<p>@child.residesAt.name</p>
+		@for(interview <- child.interviews){
+			<p>interview.interviewTranscript</p>
+		}
+	</div>
+	
+	<hr>
+	
+}

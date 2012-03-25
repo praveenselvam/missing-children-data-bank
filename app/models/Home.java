@@ -36,4 +36,16 @@ public class Home extends Model{
 	
 	@OneToMany
 	public List<Child> residents = new ArrayList<Child>();
+	
+	public static Model.Finder<Long,Home> find = new Model.Finder(Long.class, Home.class);
+	
+	public static Home findById(Long id)
+	{
+		return find.byId(id);
+	}
+	
+	public static List<Home> all()
+	{	
+		return find.all();
+	}
 }

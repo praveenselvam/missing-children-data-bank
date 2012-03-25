@@ -5,4 +5,19 @@ users:
         email:      admin@hugsindia.org
         name:       Hugs Admin
         password:   password
+        
+# Home
+homes:
+
+    - !!models.Home
+        name:    Royapuram Boys Home
+        contactPerson:    admin
+        address:    Royapuram,chennai
+        phoneNumber:    0000000000
+        
+    - !!models.Home
+        name:    Some other Boys Home
+        contactPerson:    admin
+        address:    abc,Tanjavur
+        phoneNumber:    0000000000        
     

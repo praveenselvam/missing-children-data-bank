@@ -2,13 +2,14 @@
 
 @main("addchildinterview"){
 	<div>
-		@helper.form(routes.Admin.newInterview) {
+		@helper.form(action = routes.Admin.newInterview(child.id)) {
 			<h1>Child Information</h1> 
 	            <label>Conducted On: </label>
-	            	<input type="conductedOn" name="conductedOn" placeholder="conductedOn" value="@form("conductedOn").value"><br>
+	            	<input type="text" name="conductedOn" placeholder="conductedOn" value="@form("conductedOn").value"><br>
 	            <label>Transcript: </label>
-	            	<textarea type="conductedOn" name="conductedOn" placeholder="transcript" value="@form("conductedOn").value"></textarea>
+	            	<textarea name="transcript" placeholder="transcript" value="@form("conductedOn").value"></textarea>
 	            <br>
+	            <input type="text" value="@child.id">
 	            <button type="submit">Next</button>
 	        
 			

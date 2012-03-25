@@ -1,0 +1,6 @@
+@main("addchild"){
+<h1>All Children : @Child.find.all().size()</h1>
+	@for(kid <- Child.find.all()){
+		<p>@kid.name : @kid.id</p>
+	}
+}

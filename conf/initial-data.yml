@@ -1,0 +1,8 @@
+# Users
+users:
+
+    - !!models.User
+        email:      admin@hugsindia.org
+        name:       Hugs Admin
+        password:   password
+    

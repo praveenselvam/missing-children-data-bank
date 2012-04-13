@@ -12,7 +12,7 @@ import play.data.validation.*;
 import play.db.ebean.Model;
 
 @Entity
-public class Interview extends Model{
+public class Interview extends AuditedModel{
 
 	@Id
 	public Long id;

@@ -1,0 +1,15 @@
+Updates :
+	- child
+	- interview
+Access controll.
+	- Roles and privs
+
+Html templates
+	- split and combine views.
+	
+Face recoginition.
+
+Reports.
+
+Db migrations and patching.
+Wiki style editing for interviews.

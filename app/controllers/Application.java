@@ -1,3 +1,4 @@
+
 package controllers;
 
 import models.Login;
@@ -27,6 +28,11 @@ public class Application extends Controller {
   
 	public static Result login()
 	{
+		if(!session().isEmpty()&& session().containsKey(SESSION_KEY))
+		{
+			return redirect(routes.Admin.index());
+		}
+		
 	 return ok(
 		  		views.html.login.render(form(Login.class))
 		  	);

@@ -1,0 +1,19 @@
+
+Volunteer-portal
+	- login ( via fb or g+ )
+	- lookup? or add?
+	- lookup - search + photo
+	- add 
+		- add child information
+		- add interviews
+		-- done.
+	-- what is the default landing page for a volunteer?
+	- roles?
+		- Can
+			- add child
+			- search for a child? ( allen: no, I would not trust a volunteer-1 that much )
+				- how does a volunteer correct a mistake?
+					- interviews and basic info
+					- volunteer needs to add another interview to a child
+						- [: this could show up as an assigned task ]
+use FB as a notification system for assigned tasks.

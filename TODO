@@ -1,0 +1,30 @@
+
+Add information about a child
+	As an Admin/Volunteer I should be able to
+		- create basic information about a child
+			- at the end of this we should have collected basic information
+			about the child.
+			- have an entry id for the child and have the current location for the child
+		## list what fields are part of the basic child information
+		
+Add an interview
+	As an Admin/Volunteer I should be able to
+		- add the interview transcript for the child.
+		- The transcript will be free flow text
+		- The record entry should contain an audit entry for who did the interview,
+		the system should log an entry for who added/edited the interview transcript.
+		
+View Child summary page.
+	As an Admin/Volunteer I should be able to view the child summary page.
+		- This page should contain the basic information about the child
+		- Links to all the interviews conducted for the child.
+
+Edit child information
+	As an Admin/Volunteer I should be able to edit the basic information of the child
+	- I should also be able to edit the interview transcript. ( how do we track history?, make a backup 
+	copy to disk? have a manual reviewer oversee the interview content? and then remove? )
+
+Audit
+	- As the system, it should track all inserts and updates to a user. 
+		
+			

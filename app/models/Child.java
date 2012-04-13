@@ -14,7 +14,7 @@ import play.db.ebean.Model;
 import play.data.validation.*;
 
 @Entity
-public class Child extends Model{
+public class Child extends AuditedModel{
 
 	@Id
 	public Long id;

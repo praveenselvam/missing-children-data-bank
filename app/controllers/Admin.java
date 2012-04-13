@@ -39,6 +39,12 @@ public class Admin extends Controller{
 		return ok(views.html.admin.interview.render(form(Interview.class),c));
 	}
 	
+	public static Result addInterview(Long childId)
+	{
+		Child c = Child.find.byId(childId);
+		return ok(views.html.admin.interview.render(form(Interview.class),c));
+	}
+	
 	public static Result newInterview(Long childId)
 	{
 		Child c = Child.find.byId(childId);

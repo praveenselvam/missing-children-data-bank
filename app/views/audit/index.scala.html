@@ -1,0 +1,29 @@
+@main("allaudits"){
+<style>
+	table td {
+		border:1px solid black;
+		padding: 2px;
+	}
+</style>
+<h1>All Audits : @Audit.find.all().size()</h1>
+	<table>
+			<tr>
+				<td>ID</td>
+				<td>Type</td>
+				<td>Against</td>
+				<td>Identified By</td>
+				<td>On</td>	
+				<td>By</td>			
+			</tr>	
+		@for(entry <- Audit.find.all()){
+			<tr>
+				<td>@entry.id</td>
+				<td>@entry.typeOf</td>
+				<td>@entry.entity</td>
+				<td>@entry.entityIdentifiedBy</td>
+				<td>@entry.when</td>
+				<td>@entry.by</td>				
+			</tr>
+		}
+	</table>
+}

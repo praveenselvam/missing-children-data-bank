@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table audit (
+  id                        bigint not null,
+  type_of                   varchar(255),
+  entity                    varchar(255),
+  entity_identified_by      varchar(255),
+  by                        varchar(255),
+  when                      timestamp,
+  constraint pk_audit primary key (id))
+;
+
 create table child (
   id                        bigint not null,
   name                      varchar(255),
@@ -41,6 +51,12 @@ create table language (
   constraint pk_language primary key (id))
 ;
 
+create table task (
+  id                        bigint not null,
+  assigned_to_email         varchar(255),
+  constraint pk_task primary key (id))
+;
+
 create table account (
   email                     varchar(255) not null,
   name                      varchar(255),
@@ -66,6 +82,8 @@ create table language_child (
   child_id                       bigint not null,
   constraint pk_language_child primary key (language_id, child_id))
 ;
+create sequence audit_seq;
+
 create sequence child_seq;
 
 create sequence home_seq;
@@ -74,12 +92,16 @@ create sequence interview_seq;
 
 create sequence language_seq;
 
+create sequence task_seq;
+
 create sequence account_seq;
 
 alter table child add constraint fk_child_residesAt_1 foreign key (resides_at_id) references home (id) on delete restrict on update restrict;
 create index ix_child_residesAt_1 on child (resides_at_id);
 alter table interview add constraint fk_interview_child_2 foreign key (child_id) references child (id) on delete restrict on update restrict;
 create index ix_interview_child_2 on interview (child_id);
+alter table task add constraint fk_task_assignedTo_3 foreign key (assigned_to_email) references account (email) on delete restrict on update restrict;
+create index ix_task_assignedTo_3 on task (assigned_to_email);
 
 
 
@@ -99,6 +121,8 @@ alter table language_child add constraint fk_language_child_child_02 foreign key
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
+drop table if exists audit;
+
 drop table if exists child;
 
 drop table if exists child_language;
@@ -113,9 +137,13 @@ drop table if exists language;
 
 drop table if exists language_child;
 
+drop table if exists task;
+
 drop table if exists account;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists audit_seq;
 
 drop sequence if exists child_seq;
 
@@ -124,6 +152,8 @@ drop sequence if exists home_seq;
 drop sequence if exists interview_seq;
 
 drop sequence if exists language_seq;
+
+drop sequence if exists task_seq;
 
 drop sequence if exists account_seq;
 

@@ -10,8 +10,10 @@ GET		/home						controllers.Admin.index()
 POST	/authenticate				controllers.Application.authenticate()
 POST	/child						controllers.Admin.newChild()
 POST	/child/:id/interview		controllers.Admin.newInterview(id: Long)
+GET		/child/:id/interview		controllers.Admin.addInterview(id: Long)
 GET		/child/all					controllers.Admin.allChildren()
 GET		/child/:id					controllers.Admin.childSummary(id: Long)
+GET		/audit/all					controllers.AuditView.index()
 
 
 # Map static resources from the /public folder to the /assets URL path

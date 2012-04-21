@@ -40,8 +40,11 @@ public class Child extends AuditedModel{
 	@Constraints.Required
 	public Home residesAt;
 	
-	@ManyToMany
-	public List<Home> previousHomes = new ArrayList<Home>();
+	public void fill()
+	{
+		residesAt = Home.findById(residesAt.id);
+	}
+	
 	//-----------
 	/**
 	 * This should be pretty easy to find!
@@ -67,6 +70,7 @@ public class Child extends AuditedModel{
 		return c;
 	}
 	
+	
 	private boolean isInterviewDirty = false;
 	private boolean isPrevousHomesDirty = false;
 	private boolean isLanguageDirty = false;
@@ -79,10 +83,7 @@ public class Child extends AuditedModel{
 	{
 		this.isLanguageDirty = this.speaks.add(l) || this.isLanguageDirty;
 	}
-	private void addHome(Home h)
-	{
-		this.isPrevousHomesDirty = this.previousHomes.add(h) || this.isPrevousHomesDirty;
-	}
+	
 	private void saveDirty()
 	{
 		if(this.isInterviewDirty)
@@ -106,10 +107,7 @@ public class Child extends AuditedModel{
 	{
 		for(Object add : info)
 		{
-			if(add instanceof Home)
-			{
-				addHome((Home)add);
-			} else if(add instanceof Language)
+			if(add instanceof Language)
 			{
 				addLanguage((Language)add);
 			}else if(add instanceof Interview)

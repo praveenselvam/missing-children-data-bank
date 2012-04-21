@@ -57,6 +57,18 @@ create table task (
   constraint pk_task primary key (id))
 ;
 
+create table transfer (
+  id                        bigint not null,
+  child_id                  bigint,
+  transfer_to_id            bigint,
+  transfer_from_id          bigint,
+  reason                    varchar(255),
+  approved_by               varchar(255),
+  transfer_date             timestamp,
+  complete                  boolean,
+  constraint pk_transfer primary key (id))
+;
+
 create table account (
   email                     varchar(255) not null,
   name                      varchar(255),
@@ -69,12 +81,6 @@ create table child_language (
   child_id                       bigint not null,
   language_id                    bigint not null,
   constraint pk_child_language primary key (child_id, language_id))
-;
-
-create table child_home (
-  child_id                       bigint not null,
-  home_id                        bigint not null,
-  constraint pk_child_home primary key (child_id, home_id))
 ;
 
 create table language_child (
@@ -94,6 +100,8 @@ create sequence language_seq;
 
 create sequence task_seq;
 
+create sequence transfer_seq;
+
 create sequence account_seq;
 
 alter table child add constraint fk_child_residesAt_1 foreign key (resides_at_id) references home (id) on delete restrict on update restrict;
@@ -102,16 +110,18 @@ alter table interview add constraint fk_interview_child_2 foreign key (child_id)
 create index ix_interview_child_2 on interview (child_id);
 alter table task add constraint fk_task_assignedTo_3 foreign key (assigned_to_email) references account (email) on delete restrict on update restrict;
 create index ix_task_assignedTo_3 on task (assigned_to_email);
+alter table transfer add constraint fk_transfer_child_4 foreign key (child_id) references child (id) on delete restrict on update restrict;
+create index ix_transfer_child_4 on transfer (child_id);
+alter table transfer add constraint fk_transfer_transferTo_5 foreign key (transfer_to_id) references home (id) on delete restrict on update restrict;
+create index ix_transfer_transferTo_5 on transfer (transfer_to_id);
+alter table transfer add constraint fk_transfer_transferFrom_6 foreign key (transfer_from_id) references home (id) on delete restrict on update restrict;
+create index ix_transfer_transferFrom_6 on transfer (transfer_from_id);
 
 
 
 alter table child_language add constraint fk_child_language_child_01 foreign key (child_id) references child (id) on delete restrict on update restrict;
 
 alter table child_language add constraint fk_child_language_language_02 foreign key (language_id) references language (id) on delete restrict on update restrict;
-
-alter table child_home add constraint fk_child_home_child_01 foreign key (child_id) references child (id) on delete restrict on update restrict;
-
-alter table child_home add constraint fk_child_home_home_02 foreign key (home_id) references home (id) on delete restrict on update restrict;
 
 alter table language_child add constraint fk_language_child_language_01 foreign key (language_id) references language (id) on delete restrict on update restrict;
 
@@ -127,8 +137,6 @@ drop table if exists child;
 
 drop table if exists child_language;
 
-drop table if exists child_home;
-
 drop table if exists home;
 
 drop table if exists interview;
@@ -138,6 +146,8 @@ drop table if exists language;
 drop table if exists language_child;
 
 drop table if exists task;
+
+drop table if exists transfer;
 
 drop table if exists account;
 
@@ -154,6 +164,8 @@ drop sequence if exists interview_seq;
 drop sequence if exists language_seq;
 
 drop sequence if exists task_seq;
+
+drop sequence if exists transfer_seq;
 
 drop sequence if exists account_seq;
 

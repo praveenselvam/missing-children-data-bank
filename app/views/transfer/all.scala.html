@@ -1,0 +1,14 @@
+@(transfers: List[models.Transfer])
+@main("allTransfers"){
+	<div>
+		<ul>
+		@for(transfer <- transfers){
+			<li>
+				<a href="/transfer/@transfer.id/summary">
+					@transfer.child.name [ @transfer.transferFrom.name to @transfer.transferTo.name ] 
+				</a>
+			</li>
+		}
+		</ul>
+	</div>
+}

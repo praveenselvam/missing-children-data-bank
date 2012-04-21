@@ -2,12 +2,24 @@
 
 @main("childSummary"){
 	<div>
-		<p>@child.name</p>
-		<p>@child.residesAt.name</p>
+		<b>@child.name</b>, currently resides at 
+		<b>@child.residesAt.name</b> ,
+		born on <b>@child.dob</b>
 		@for(interview <- child.interviews){
 			<p>@interview.interviewTranscript</p>
 		}
 	</div>	
+	
+	<p>
+		@for(c <- models.Child.find.all()) {
+			
+			<p>
+				
+				@c.residesAt.name
+			</p>
+		}
+	</p>
+	
 	<hr/>
 	
 }

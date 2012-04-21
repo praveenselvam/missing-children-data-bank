@@ -1,0 +1,14 @@
+@(transfer: models.Transfer)
+
+@main("transferSummary"){
+	<div>    
+	    	<h1>Transfer Child</h1>
+	    	<label>Name : </label> <span>@transfer.child.name</span><br/>
+	    	<label>From : </label> <span>@transfer.transferFrom.name</span>
+	    	<label>To : </label><span>@transfer.transferTo.name</span><br/>
+	        <label>Transfer approved by:</label><b>@transfer.approvedBy</b><br/>
+	        <label>Reason : </label><p>@transfer.reason</p>
+	        <button type="button">Print</button>   
+	       
+	</div>
+}

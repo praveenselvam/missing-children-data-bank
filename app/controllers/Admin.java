@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import extender.RoleAwareAction;
+
 import models.Child;
 import models.Home;
 import models.Interview;
@@ -15,12 +17,18 @@ import play.mvc.*;
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller{
 
+	@With(RoleAwareAction.class)
 	public static Result index()
+	{
+		return ok(views.html.admin.home.render());
+	}
+	
+	public static Result newChild()
 	{
 		return ok(views.html.admin.child.render(form(Child.class),Home.all()));
 	}
 	
-	public static Result newChild()
+	public static Result addChild()
 	{
 		Form<Child> addChildForm = form(Child.class).bindFromRequest();
 		
@@ -88,7 +96,7 @@ public class Admin extends Controller{
 		// this needs to be validated
 		// if we get botched up values
 		// this will fail flat on.
-		Transfer t = new Transfer(c, c.residesAt,
+		Transfer t = new Transfer(c, c.home,
 				Home.findById(Long.valueOf(toHome)),
 				reason, approvedBy);
 		t.save();
@@ -118,6 +126,8 @@ public class Admin extends Controller{
 	}
 	
 	public static Result childSummary(Long id){
-		return ok(views.html.admin.summary.render(Child.find.byId(id)));
+		Child c = Child.find.byId(id);
+		c.fill();
+		return ok(views.html.admin.summary.render(c));
 	}
 }

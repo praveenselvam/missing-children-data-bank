@@ -11,10 +11,10 @@
 	    
 	    	<h1>Transfer Child</h1>
 	    	<label>Name : </label> <span>@child.name</span><br/>
-	    	<label>From : </label> <span>@child.residesAt.name</span>
+	    	<label>From : </label> <span>@child.home.name</span>
 	    	<label>To : </label> <select name="toHome" id="toHhome">
 	            	@for(h <- homes){
-	            		@if(h.id != child.residesAt.id){
+	            		@if(h.id != child.home.id){
 	            		<option value="@h.id">@h.name</option>
 	            		}
 	            	}

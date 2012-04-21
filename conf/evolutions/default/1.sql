@@ -19,7 +19,7 @@ create table child (
   age                       integer,
   dob                       timestamp,
   photo_path                varchar(255),
-  resides_at_id             bigint,
+  home_id                   bigint,
   gender                    varchar(255),
   is_interview_dirty        boolean,
   is_prevous_homes_dirty    boolean,
@@ -104,8 +104,8 @@ create sequence transfer_seq;
 
 create sequence account_seq;
 
-alter table child add constraint fk_child_residesAt_1 foreign key (resides_at_id) references home (id) on delete restrict on update restrict;
-create index ix_child_residesAt_1 on child (resides_at_id);
+alter table child add constraint fk_child_home_1 foreign key (home_id) references home (id) on delete restrict on update restrict;
+create index ix_child_home_1 on child (home_id);
 alter table interview add constraint fk_interview_child_2 foreign key (child_id) references child (id) on delete restrict on update restrict;
 create index ix_interview_child_2 on interview (child_id);
 alter table task add constraint fk_task_assignedTo_3 foreign key (assigned_to_email) references account (email) on delete restrict on update restrict;

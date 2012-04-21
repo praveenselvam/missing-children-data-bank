@@ -1,0 +1,17 @@
+
+@main("homePage"){
+	<div>
+		Welcome home!
+		<div>
+			<b>Summary</b>
+			<ul>
+				@for(home <- models.Home.all()){
+					<li><a href="#">@home.name</a> houses @home.residents.size() resident(s)</li>
+				}
+			</ul>		
+		</div>
+		<div>
+			<a href="/child">Add Child</a>
+		</div>
+	</div>
+}

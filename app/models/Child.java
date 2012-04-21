@@ -38,11 +38,11 @@ public class Child extends AuditedModel{
 	
 	@OneToOne
 	@Constraints.Required
-	public Home residesAt;
+	public Home home;
 	
 	public void fill()
 	{
-		residesAt = Home.findById(residesAt.id);
+		home = Home.findById(home.id);
 	}
 	
 	//-----------
@@ -59,7 +59,7 @@ public class Child extends AuditedModel{
 		this.age = _age;
 		this.dob = _dob;
 		this.gender = _gender;
-		this.residesAt = _home;
+		this.home = _home;
 				
 	}
 	
@@ -67,6 +67,7 @@ public class Child extends AuditedModel{
 	{
 		Child c = new Child(_name,_age,_dob,_gender,_home);
 		c.save();
+		c.fill();
 		return c;
 	}
 	

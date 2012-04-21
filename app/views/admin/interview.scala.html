@@ -5,7 +5,7 @@
 		@helper.form(action = routes.Admin.newInterview(child.id)) {
 			<h1>Child Information</h1> 
 	            <label>Conducted On: </label>
-	            	<input type="text" name="conductedOn" placeholder="conductedOn" value="@form("conductedOn").value"><br>
+	            	<input type="text" name="conductedOn" class="datepicker" value="@form("conductedOn").value"><br>
 	            <label>Transcript: </label>
 	            	<textarea name="transcript" placeholder="transcript" value="@form("conductedOn").value"></textarea>
 	            <br>

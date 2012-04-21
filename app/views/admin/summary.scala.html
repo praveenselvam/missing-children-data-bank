@@ -3,23 +3,17 @@
 @main("childSummary"){
 	<div>
 		<b>@child.name</b>, currently resides at 
-		<b>@child.residesAt.name</b> ,
+		<b>@child.home.name</b> ,
 		born on <b>@child.dob</b>
 		@for(interview <- child.interviews){
 			<p>@interview.interviewTranscript</p>
 		}
-	</div>	
-	
-	<p>
-		@for(c <- models.Child.find.all()) {
-			
-			<p>
-				
-				@c.residesAt.name
-			</p>
+		
+		<b>Transfer history</b><br/>
+		@for(transfer <- models.Transfer.byChild(child.id)){
+			<p>@transfer.reason : @transfer.transferDate</p>
 		}
-	</p>
-	
-	<hr/>
-	
+		
+	</div>
+	<a href="/child/@child.id/interview">Add Interview</a> | <a href="/transfer/@child.id">Transfer</a>
 }

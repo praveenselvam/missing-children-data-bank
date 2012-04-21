@@ -42,6 +42,17 @@ public class Transfer extends AuditedModel {
 		this.transferFrom = from;
 		this.reason = reason;
 		this.approvedBy = approvedBy;
+		this.transferDate = new Date();
+	}
+	
+	public static List<Transfer> byChild(Long childId)
+	{
+		List<Transfer> allTransfers = find.where().eq("child_id", childId).orderBy().asc("transferDate").findList();
+		for(Transfer t : allTransfers)
+		{
+			t.fill();
+		}
+		return allTransfers;
 	}
 	
 	public static List<Transfer> all()

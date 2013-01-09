@@ -6,24 +6,28 @@
 	}
 </style>
 <h1>All Audits : @Audit.find.all().size()</h1>
-	<table>
+	<table id="hor-minimalist-a">
+		<thead>
 			<tr>
-				<td>ID</td>
-				<td>Type</td>
-				<td>Against</td>
-				<td>Identified By</td>
-				<td>On</td>	
-				<td>By</td>			
-			</tr>	
+				<th scope="col">ID</th>
+				<th scope="col">Type</th>
+				<th scope="col">Against</th>
+				<th scope="col">Identified By</th>
+				<th scope="col">On</th>	
+				<th scope="col">By</th>			
+			</tr>
+		</thead>
+		<tbody>		
 		@for(entry <- Audit.find.all()){
 			<tr>
-				<td>@entry.id</td>
-				<td>@entry.typeOf</td>
-				<td>@entry.entity</td>
-				<td>@entry.entityIdentifiedBy</td>
-				<td>@entry.when</td>
-				<td>@entry.by</td>				
+				<td scope="col">@entry.id</td>
+				<td scope="col">@entry.typeOf</td>
+				<td scope="col">@entry.entity</td>
+				<td scope="col">@entry.entityIdentifiedBy</td>
+				<td scope="col">@entry.when</td>
+				<td scope="col">@entry.by</td>				
 			</tr>
+		</tbody>	
 		}
 	</table>
 }

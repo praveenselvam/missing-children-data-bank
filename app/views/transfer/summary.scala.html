@@ -1,14 +1,30 @@
 @(transfer: models.Transfer)
 
 @main("transferSummary"){
-	<div>    
-	    	<h1>Transfer Child</h1>
-	    	<label>Name : </label> <span>@transfer.child.name</span><br/>
-	    	<label>From : </label> <span>@transfer.transferFrom.name</span>
-	    	<label>To : </label><span>@transfer.transferTo.name</span><br/>
-	        <label>Transfer approved by:</label><b>@transfer.approvedBy</b><br/>
-	        <label>Reason : </label><p>@transfer.reason</p>
-	        <button type="button">Print</button>   
-	       
-	</div>
+	<fieldset>
+			<legend>Transfer Summary for</legend>
+			<dl class="field-list">
+				<dd>					 
+					<span><b>@transfer.child.name</b></span>				
+					<span>
+						From &nbsp;
+						<b>@transfer.transferFrom.name</b>
+						To &nbsp;
+						<b>@transfer.transferTo.name</b>
+					</span>
+				</dd>
+				<dd>
+					<span>
+						Transfer approved by <b>@transfer.approvedBy</b>
+					</span>	
+				</dd>
+				<dd>
+					<span>Reason : </span>
+					<p>@transfer.reason</p>
+				</dd>
+			</dl>
+	</fieldset>
+	<div class="actions">
+		<input type="button" class="btn primary" value="Print">					
+	</div>	
 }

@@ -1,15 +1,16 @@
 @(form: Form[models.Interview],child: models.Child)
 
-@main("addchildinterview"){
-	<div>
+@main("addchildinterview"){	
 		@helper.form(action = routes.Admin.newInterview(child.id)) {
-			<h1>Child Information</h1> 
-	            <label>Conducted On: </label>
-	            	<input type="text" name="conductedOn" class="datepicker" value="@form("conductedOn").value"><br>
-	            <label>Transcript: </label>
-	            	<textarea name="transcript" placeholder="transcript" value="@form("conductedOn").value"></textarea>
-	            <br>
-	            <button type="submit">Next</button>
-		}
-	</div>
+		<fieldset>
+				<legend>Interview.</legend>
+				<dl class="field-list">
+					<dd><label>Conducted On: </label><input type="text" name="conductedOn" class="datepicker" value="@form("conductedOn").value"></dd>
+					<dd><label>Transcript: </label><textarea class="interview-text" name="transcript" placeholder="transcript" value="@form("conductedOn").value"></textarea></dd>
+			 	</dl>	            	     		       
+	     </fieldset>
+	     <div class="actions">
+				<input type="submit" class="btn primary" value="Next">					
+		</div>	
+		}	
 }

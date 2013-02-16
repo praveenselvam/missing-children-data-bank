@@ -22,6 +22,8 @@ GET		/transfer/:id				controllers.Admin.beginTransfer(id: Long)
 POST	/transfer/:id				controllers.Admin.doTransfer(id: Long)
 GET		/transfer/:id/summary		controllers.Admin.showTransfer(id: Long)
 
+GET		/photo/:id					controllers.Admin.photo(id: Long)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

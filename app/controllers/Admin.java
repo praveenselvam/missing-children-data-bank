@@ -1,9 +1,19 @@
 package controllers;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import extender.RoleAwareAction;
 
@@ -13,6 +23,9 @@ import models.Interview;
 import models.Transfer;
 import play.data.Form;
 import play.mvc.*;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
+import utils.ImageUtils;
 
 @Security.Authenticated(Secured.class)
 public class Admin extends Controller{
@@ -28,10 +41,20 @@ public class Admin extends Controller{
 		return ok(views.html.admin.child.render(form(Child.class),Home.all()));
 	}
 	
+	public static Result photo(Long childId)
+	{	
+		// stream from db as blob
+		File _f = new File(ImageUtils.getTempDirectory()+childId+".png");
+		if(!_f.exists())
+		{
+			_f = new File(ImageUtils.getTempDirectory()+"unknown.png");
+		}
+		return ok(_f);
+	}
+	
 	public static Result addChild()
 	{
-		Form<Child> addChildForm = form(Child.class).bindFromRequest();
-		
+		Form<Child> addChildForm = form(Child.class).bindFromRequest();		
 		
 		String name = form().bindFromRequest().get("name");
 		String age = form().bindFromRequest().get("age");
@@ -39,15 +62,37 @@ public class Admin extends Controller{
 		String gender = form().bindFromRequest().get("gender");
 		String home = form().bindFromRequest().get("home");
 		
-		
-		System.out.println(name + ": "+age+":"+dob+":"+gender+":"+home );
-		
-		
-		
 		Child c = Child.create(name, Integer.valueOf(age), new Date(), gender, Home.findById(Long.valueOf(home)));
 		
-		//return ok(views.html.admin.child.render(addChildForm,Home.all()));
+		MultipartFormData formdata = request().body().asMultipartFormData();
+		FilePart photo = formdata.getFile("photo");
+		
+		if(photo!=null)
+		{			
+			//System.out.println(photo.getContentType());
+			// filter by image size and types
+			// store to db as blob.
+			File _f = photo.getFile();
+			try
+			{
+				BufferedImage  _i = ImageIO.read(_f);
+				
+				Dimension actualSize = new Dimension(_i.getWidth(),_i.getHeight());
+				Dimension preferedSize = new Dimension(200,200);
+				
+				Dimension size = ImageUtils.resizePreservingAspectRatio(actualSize, preferedSize);				
+				
+				BufferedImage imageBuff = new BufferedImage((int)size.width, (int)size.height, BufferedImage.TYPE_INT_RGB);
+				
+		        Graphics g = imageBuff.createGraphics();
+		        g.drawImage(_i.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH), 0, 0, new Color(0,0,0), null);
+		        g.dispose();				
+				ImageIO.write(imageBuff, "png", new File(ImageUtils.getTempDirectory()+c.id+".png"));				
+							
+			}catch(Exception e){}
+		}
 		return ok(views.html.admin.interview.render(form(Interview.class),c));
+		
 	}
 	
 	public static Result addInterview(Long childId)

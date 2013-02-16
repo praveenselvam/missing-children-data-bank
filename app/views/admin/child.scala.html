@@ -11,7 +11,7 @@
 	    </p>
 	  }
 	        
-		@helper.form(routes.Admin.addChild, 'class -> "form-horizontal") {
+		@helper.form(action=routes.Admin.addChild, 'enctype ->"multipart/form-data", 'class -> "form-horizontal") {
 			<fieldset>
 				<legend>Basic Information</legend>
 				
@@ -63,14 +63,22 @@
 			    </div>
 			  </div>
 
+		    <!-- Home -->
+		    <div class="control-group">
+					<label class="control-label" for="photo">Photo:</label>
+			    <div class="controls">
+			    	<input type="file" id="photo" name="photo"/>
+			    </div>
+			  </div>
+
 			  <!-- Actions -->
 			  <div class="control-group">
 			  	<div class="controls">
 			  		<input type="submit" class="btn primary" value="Next">
 			  	</div>
 			  </div>
-
-			</fieldset>
+			  
+			</fieldset> 
 		}
 	</div>
 }

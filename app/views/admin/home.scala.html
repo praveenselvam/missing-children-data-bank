@@ -5,9 +5,9 @@
 			@for(home <- models.Home.all()){
 			  <li class="span4">
 			    <div class="thumbnail">
-			      <img data-src="holder.js/300x200" alt="">
+			      <img src="/assets/images/mock/home.jpg" alt="@home.name">
 			      <h3>@home.name</h3>
-			      <p>@home.residents.size() resident(s)</p>
+			      <p class="muted"><i>@home.residents.size() resident(s)</i></p>
 			    </div>
 			  </li>
 			}

@@ -1,27 +1,59 @@
 @(form: Form[models.Transfer], homes: List[models.Home], child: models.Child)
 
 @main("transferChild"){
-	<div>
+	<div id="transfer-child" class="container">
+
+		<h2>Transfer Child</h2>
+
 		@if(form.hasGlobalErrors) { 
-	            <p class="error">
-	                @form.globalError.message
-	            </p>
-	        }
-	    @helper.form(routes.Admin.doTransfer(child.id)) {
-	    
-	    	<h1>Transfer Child</h1>
-	    	<label>Name : </label> <span>@child.name</span><br/>
-	    	<label>From : </label> <span>@child.home.name</span>
-	    	<label>To : </label> <select name="toHome" id="toHhome">
-	            	@for(h <- homes){
-	            		@if(h.id != child.home.id){
-	            		<option value="@h.id">@h.name</option>
-	            		}
-	            	}
-	            </select><br/>
-	         <label>Transfer approved by:</label> <input type="text" name="approvedBy" id="approvedBy" ><br/>
-	         <label>Reason : </label><textarea name="reason" id="reason"></textarea>
-	         <button type="submit">Transfer</button> <a href="#">Cancel</a>   
-	    }    
+      <p class="error">
+        @form.globalError.message
+      </p>
+    }
+    @helper.form(routes.Admin.doTransfer(child.id), 'class -> "form-horizontal") {
+    	<fieldset>
+
+    		<legend>@child.name from @child.home.name</legend>
+
+				<!-- Name -->
+				<div class="control-group">
+					<label class="control-label" for="toHhome">Transfer to:</label>
+					<div class="controls">
+			      <select name="toHome" id="toHhome">
+			      	@for(h <- homes){
+			      		@if(h.id != child.home.id){
+			      			<option value="@h.id">@h.name</option>
+			      		}
+			      	}
+			      </select>
+			    </div>
+			  </div>
+
+				<!-- Approved by -->
+				<div class="control-group">
+					<label class="control-label" for="approvedBy">Transfer Approved by:</label>
+					<div class="controls">
+			      <input type="text" id="approvedBy" value="@form("approvedBy").value" name="approvedBy" />
+			    </div>
+			  </div>
+
+				<!-- Reason -->
+				<div class="control-group">
+					<label class="control-label" for="reason">Reason:</label>
+					<div class="controls">
+			      <input type="text" id="reason" value="@form("reason").value" name="reason" />
+			    </div>
+			  </div>
+
+			  <!-- Actions -->
+			  <div class="control-group">
+			  	<div class="controls">
+			  		<input type="submit" class="btn btn-primary" value="Transfer">
+			  	</div>
+		  	</div>
+	  	</fieldset>
+
+    	</fieldset>
+    }    
 	</div>
 }

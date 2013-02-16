@@ -54,8 +54,7 @@ public class Admin extends Controller{
 	
 	public static Result addChild()
 	{
-		Form<Child> addChildForm = form(Child.class).bindFromRequest();
-		
+		Form<Child> addChildForm = form(Child.class).bindFromRequest();		
 		
 		String name = form().bindFromRequest().get("name");
 		String age = form().bindFromRequest().get("age");

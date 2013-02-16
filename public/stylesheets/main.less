@@ -1,17 +1,54 @@
 @import "bootstrap/mixins";
 
+html,
 body{
-	background: url('/assets/images/wood_pattern.png') repeat center center #ffffff;
+	min-height: 100%;
+	height: 100%;
+}
+
+body{
+	background: url('/assets/images/main-bg.jpg') repeat center top #ffffff;
 }
 
 header{
 	height: 100px;
-	width: 1024px;
-	margin: 0 auto;
+	background: #393228;
+	margin: 0 0 10px;
+	border-bottom: 5px solid #544a3c;
+
+	.content{
+		width: 940px;
+		margin: 0 auto;
+
+		.logo{
+			float: left;
+			width: 80px;
+			height: 80px;
+			margin: 10px 20px 0 0;
+			background: url('/assets/images/missing-logo.png') no-repeat center center transparent;
+		}
+
+		h1{
+			line-height: 100px;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   		font-weight: 300;
+   		color: #ffffff;
+   		text-shadow: 0 3px 0 rgba(0, 0, 0, 1);
+   		float: left;
+   		margin: 0;
+		}
+
+		.logout{
+			float: right;
+			margin: 40px 10px 0 0;
+			color: white;
+		}
+	}
 }
 
 .container{
-	width: 1024px;
 	background-color: white;
-	.box-shadow(0 2px 2px lighten(#000, 50%));
+	border: 5px solid #544a3c;
+	.border-radius(4px);
+	min-height: 500px;
 }

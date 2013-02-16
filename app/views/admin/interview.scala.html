@@ -1,16 +1,37 @@
 @(form: Form[models.Interview],child: models.Child)
 
 @main("addchildinterview"){	
-		@helper.form(action = routes.Admin.newInterview(child.id)) {
-		<fieldset>
-				<legend>Interview.</legend>
-				<dl class="field-list">
-					<dd><label>Conducted On: </label><input type="text" name="conductedOn" class="datepicker" value="@form("conductedOn").value"></dd>
-					<dd><label>Transcript: </label><textarea class="interview-text" name="transcript" placeholder="transcript" value="@form("conductedOn").value"></textarea></dd>
-			 	</dl>	            	     		       
-	     </fieldset>
-	     <div class="actions">
-				<input type="submit" class="btn primary" value="Next">					
-		</div>	
-		}	
+	<div id="add-interview">
+
+		<h2>Add a New Child</h2>
+
+		@helper.form(action = routes.Admin.newInterview(child.id), 'class -> "form-horizontal") {
+			<fieldset>
+				<legend>New Interview</legend>
+
+				<!-- Conducted on -->
+				<div class="control-group">
+					<label class="control-label" for="inputConductedOn">Conducted on:</label>
+					<div class="controls">
+			      <input type="text" id="inputConductedOn" value="@form("conductedOn").value" name="conductedOn" class="datepicker" />
+			    </div>
+			  </div>
+
+				<!-- Transcript -->
+				<div class="control-group">
+					<label class="control-label">Transcript:</label>
+					<div class="controls">
+			      <textarea class="input-xxlarge" name="transcript" placeholder="Enter notes/findings from the interview" value="@form("conductedOn").value" rows="10"></textarea>
+			    </div>
+			  </div>
+
+			  <!-- Actions -->
+			  <div class="control-group">
+			  	<div class="controls">
+			  		<input type="submit" class="btn primary" value="Next">
+			  	</div>
+		  	</div>
+	  	</fieldset>
+		}
+	</div>
 }

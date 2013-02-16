@@ -28,8 +28,8 @@ public class Child extends AuditedModel{
 	public int age;
 	public Date dob;
 	
-	public String photoPath;
-	
+	public String cwcId,homeAdmissionId,parent,nativeTown,nativeState,status;
+		
 	@OneToMany
 	public List<Interview> interviews = new ArrayList<Interview>();
 	
@@ -53,22 +53,33 @@ public class Child extends AuditedModel{
 	
 	public static Model.Finder<Long,Child> find = new Model.Finder(Long.class, Child.class);
 	
-	public Child(String _name,int _age,Date _dob,String _gender,Home _home)
+	public Child(String _name,int _age,Date _dob,String _gender,Home _home,String cwcId,String homeAdmissionId,String parent,String nativeTown,String state)
 	{
 		this.name = _name;
 		this.age = _age;
 		this.dob = _dob;
 		this.gender = _gender;
 		this.home = _home;
+		
+		this.cwcId = cwcId;
+		this.homeAdmissionId = homeAdmissionId;
+		this.parent = parent;
+		this.nativeTown = nativeTown;
+		this.nativeState = state;
 				
 	}
 	
-	public static Child create(String _name,int _age,Date _dob,String _gender,Home _home)
+	public static Child create(String _name,int _age,Date _dob,String _gender,Home _home,String cwcId,String homeAdmissionId,String parent,String nativeTown,String state)
 	{
-		Child c = new Child(_name,_age,_dob,_gender,_home);
+		Child c = new Child(_name,_age,_dob,_gender,_home,cwcId,homeAdmissionId,parent,nativeTown,state);
 		c.save();
-		c.fill();
+		c.fill();		
 		return c;
+	}
+	
+	public void setCurrentStatus(String status)
+	{
+		this.status = status;
 	}
 	
 	

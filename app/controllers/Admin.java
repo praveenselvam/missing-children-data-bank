@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -20,6 +21,7 @@ import extender.RoleAwareAction;
 import models.Child;
 import models.Home;
 import models.Interview;
+import models.Photo;
 import models.Transfer;
 import play.data.Form;
 import play.mvc.*;
@@ -44,12 +46,14 @@ public class Admin extends Controller{
 	public static Result photo(Long childId)
 	{	
 		// stream from db as blob
-		File _f = new File(ImageUtils.getTempDirectory()+childId+".png");
-		if(!_f.exists())
+		
+		Photo thumbnail = Photo.findByChildId(childId);
+		if(thumbnail == null)
 		{
-			_f = new File(ImageUtils.getTempDirectory()+"unknown.png");
+			System.out.println("Thumbnain is null");
+			thumbnail = new Photo(-1L, new byte[]{ });
 		}
-		return ok(_f);
+		return ok(thumbnail.image);
 	}
 	
 	public static Result addChild()
@@ -62,7 +66,23 @@ public class Admin extends Controller{
 		String gender = form().bindFromRequest().get("gender");
 		String home = form().bindFromRequest().get("home");
 		
-		Child c = Child.create(name, Integer.valueOf(age), new Date(), gender, Home.findById(Long.valueOf(home)));
+		String cwcId = "test-cwc/ID";
+		String homeAdmissionId = "1023";
+		String parent = "test-parent";
+		String nativeTown = "test-native";
+		String state = "TN";
+		
+		Child c = Child.create(name,
+							   Integer.valueOf(age), 
+							   new Date(), 
+							   gender,
+							   Home.findById(Long.valueOf(home)),
+							   cwcId,
+							   homeAdmissionId,
+							   parent,
+							   nativeTown,
+							   state
+							  );
 		
 		MultipartFormData formdata = request().body().asMultipartFormData();
 		FilePart photo = formdata.getFile("photo");
@@ -86,8 +106,18 @@ public class Admin extends Controller{
 				
 		        Graphics g = imageBuff.createGraphics();
 		        g.drawImage(_i.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH), 0, 0, new Color(0,0,0), null);
-		        g.dispose();				
-				ImageIO.write(imageBuff, "png", new File(ImageUtils.getTempDirectory()+c.id+".png"));				
+		        g.dispose();
+		        
+		        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+				ImageIO.write(imageBuff, "png", bos);
+				
+				byte[] tn = bos.toByteArray();
+				
+				System.out.println(tn.length +  " size of image for " + c.id);
+				
+				
+				Photo childThumbnail = new Photo(c.id, tn);
+				childThumbnail.save();
 							
 			}catch(Exception e){}
 		}

@@ -35,8 +35,10 @@ body {
 }
 body .top-nav-bar {
   background-color: #d3cbc0;
+  border-top: 5px solid #544a3c;
   border-bottom: 5px solid #544a3c;
   *zoom: 1;
+  margin-bottom: 10px;
 }
 body .top-nav-bar:before,
 body .top-nav-bar:after {
@@ -54,8 +56,6 @@ body .top-nav-bar .center {
 header {
   height: 100px;
   background: #393228;
-  margin: 0 0 10px;
-  border-bottom: 5px solid #544a3c;
 }
 header .content {
   width: 940px;

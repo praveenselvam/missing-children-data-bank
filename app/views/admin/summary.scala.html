@@ -1,19 +1,52 @@
 @(child: models.Child)
 
 @main("childSummary"){
-	<div>
-		<b>@child.name</b>, currently resides at 
-		<b>@child.home.name</b> ,
-		born on <b>@child.dob</b>
-		@for(interview <- child.interviews){
-			<p>@interview.interviewTranscript</p>
-		}
-		
-		<b>Transfer history</b><br/>
-		@for(transfer <- models.Transfer.byChild(child.id)){
-			<p>@transfer.reason : @transfer.transferDate</p>
-		}
+
+	<div id="child-summary" class="container">
+
+		<div class="row">
+			<div class="span3">
+				<div class="profile-picture">
+					<img src="/assets/images/mock/child.jpg" class="img-polaroid">
+				</div>
+			</div>
+			<div class="span9">
+				
+				<a class="btn pull-right" href="/transfer/@child.id"><i class="icon-arrow-right"></i> Transfer</a>
+				<h3>@child.name</h3>
+				<p class="lead">@child.gender, @child.age, Presently at @child.home.name, Transfered twice</p>
+
+				<hr/>
+
+				<a class="btn pull-right btn-primary" href="/child/@child.id/interview"><i class="icon-plus"></i> Add Interview</a>
+				<h4>Findings about @child.name</h4>
+				@for(interview <- child.interviews){
+					<p class="muted conducted-on"><small><em>On @interview.conductedOn:</em></small></p>
+					<p>@interview.interviewTranscript</p>
+				}
+
+				<hr/>
+
+				<h4>Transfer History</h4>
+				<table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Reason</th>
+            </tr>
+          </thead>
+          <tbody>
+						@for(transfer <- models.Transfer.byChild(child.id)){
+            	<tr>
+								<td>@transfer.transferDate</td>
+								<td>@transfer.reason</td>
+            	</tr>
+						}
+          </tbody>
+        </table>
+			</div>
+		</div>
 		
 	</div>
-	<a href="/child/@child.id/interview">Add Interview</a> | <a href="/transfer/@child.id">Transfer</a>
+
 }

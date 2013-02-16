@@ -8,7 +8,7 @@
 	            </p>
 	        }
 	        
-		@helper.form(routes.Admin.addChild) {
+		@helper.form(action=routes.Admin.addChild,'enctype ->"multipart/form-data") {
 		
 			<fieldset>
 				<legend>Basic information about the child.</legend>
@@ -40,6 +40,11 @@
 	            	}
 	            </select><br>
 			</fieldset>
+			<fieldset>
+	        	<legend>Do you have a picture?</legend>
+	        	<label></label>
+	            <input type="file" id="photo" name="photo"/>	
+			</fieldset>			
 			<div class="actions">
 					<input type="submit" class="btn primary" value="Next">					
 			</div>			    

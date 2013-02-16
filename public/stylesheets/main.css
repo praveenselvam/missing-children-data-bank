@@ -32,13 +32,22 @@ body {
 }
 body {
   background: url('/assets/images/main-bg.jpg') repeat center top #ffffff;
-  padding-top: 45px;
 }
-body .navbar-fixed-top {
+body .top-nav-bar {
   background-color: #d3cbc0;
   border-bottom: 5px solid #544a3c;
+  *zoom: 1;
 }
-body .navbar-fixed-top .center {
+body .top-nav-bar:before,
+body .top-nav-bar:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body .top-nav-bar:after {
+  clear: both;
+}
+body .top-nav-bar .center {
   width: 940px;
   margin: 0 auto;
 }

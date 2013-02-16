@@ -21,7 +21,7 @@ public class Audit extends Model{
 	
 	public String by;
 	
-	public Date when;
+	public Date auditDate;
 	
 	private Audit(){}
 	
@@ -31,7 +31,7 @@ public class Audit extends Model{
 	{
 		this.typeOf = t.name();
 		this.entity = auditFor.getName().replaceAll("models\\.", "");
-		this.when = new Date();
+		this.auditDate = new Date();
 		this.by = byUser;
 		this.entityIdentifiedBy = idBy;
 	}

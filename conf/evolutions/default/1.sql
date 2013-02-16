@@ -9,7 +9,7 @@ create table audit (
   entity                    varchar(255),
   entity_identified_by      varchar(255),
   by                        varchar(255),
-  when                      timestamp,
+  audit_date                timestamp,
   constraint pk_audit primary key (id))
 ;
 
@@ -104,54 +104,50 @@ create sequence transfer_seq;
 
 create sequence account_seq;
 
-alter table child add constraint fk_child_home_1 foreign key (home_id) references home (id) on delete restrict on update restrict;
+alter table child add constraint fk_child_home_1 foreign key (home_id) references home (id);
 create index ix_child_home_1 on child (home_id);
-alter table interview add constraint fk_interview_child_2 foreign key (child_id) references child (id) on delete restrict on update restrict;
+alter table interview add constraint fk_interview_child_2 foreign key (child_id) references child (id);
 create index ix_interview_child_2 on interview (child_id);
-alter table task add constraint fk_task_assignedTo_3 foreign key (assigned_to_email) references account (email) on delete restrict on update restrict;
+alter table task add constraint fk_task_assignedTo_3 foreign key (assigned_to_email) references account (email);
 create index ix_task_assignedTo_3 on task (assigned_to_email);
-alter table transfer add constraint fk_transfer_child_4 foreign key (child_id) references child (id) on delete restrict on update restrict;
+alter table transfer add constraint fk_transfer_child_4 foreign key (child_id) references child (id);
 create index ix_transfer_child_4 on transfer (child_id);
-alter table transfer add constraint fk_transfer_transferTo_5 foreign key (transfer_to_id) references home (id) on delete restrict on update restrict;
+alter table transfer add constraint fk_transfer_transferTo_5 foreign key (transfer_to_id) references home (id);
 create index ix_transfer_transferTo_5 on transfer (transfer_to_id);
-alter table transfer add constraint fk_transfer_transferFrom_6 foreign key (transfer_from_id) references home (id) on delete restrict on update restrict;
+alter table transfer add constraint fk_transfer_transferFrom_6 foreign key (transfer_from_id) references home (id);
 create index ix_transfer_transferFrom_6 on transfer (transfer_from_id);
 
 
 
-alter table child_language add constraint fk_child_language_child_01 foreign key (child_id) references child (id) on delete restrict on update restrict;
+alter table child_language add constraint fk_child_language_child_01 foreign key (child_id) references child (id);
 
-alter table child_language add constraint fk_child_language_language_02 foreign key (language_id) references language (id) on delete restrict on update restrict;
+alter table child_language add constraint fk_child_language_language_02 foreign key (language_id) references language (id);
 
-alter table language_child add constraint fk_language_child_language_01 foreign key (language_id) references language (id) on delete restrict on update restrict;
+alter table language_child add constraint fk_language_child_language_01 foreign key (language_id) references language (id);
 
-alter table language_child add constraint fk_language_child_child_02 foreign key (child_id) references child (id) on delete restrict on update restrict;
+alter table language_child add constraint fk_language_child_child_02 foreign key (child_id) references child (id);
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+drop table if exists audit cascade;
 
-drop table if exists audit;
+drop table if exists child cascade;
 
-drop table if exists child;
+drop table if exists child_language cascade;
 
-drop table if exists child_language;
+drop table if exists home cascade;
 
-drop table if exists home;
+drop table if exists interview cascade;
 
-drop table if exists interview;
+drop table if exists language cascade;
 
-drop table if exists language;
+drop table if exists language_child cascade;
 
-drop table if exists language_child;
+drop table if exists task cascade;
 
-drop table if exists task;
+drop table if exists transfer cascade;
 
-drop table if exists transfer;
-
-drop table if exists account;
-
-SET REFERENTIAL_INTEGRITY TRUE;
+drop table if exists account cascade;
 
 drop sequence if exists audit_seq;
 

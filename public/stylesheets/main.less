@@ -1,5 +1,7 @@
 @import "bootstrap/mixins";
 
+@standardFont: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
 html,
 body{
 	min-height: 100%;
@@ -8,11 +10,13 @@ body{
 
 body{
 	background: url('/assets/images/main-bg.jpg') repeat center top #ffffff;
-	padding-top: 45px;
 
-	.navbar-fixed-top{
+	.top-nav-bar{
 		background-color: lighten(#393228, 60%);
+		border-top: 5px solid #544a3c;
 		border-bottom: 5px solid #544a3c;
+		.clearfix();
+		margin-bottom: 10px;
 
 		.center{
 			width: 940px;
@@ -24,8 +28,6 @@ body{
 header{
 	height: 100px;
 	background: #393228;
-	margin: 0 0 10px;
-	border-bottom: 5px solid #544a3c;
 
 	.content{
 		width: 940px;
@@ -41,18 +43,12 @@ header{
 
 		h1{
 			line-height: 100px;
-			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+			font-family: @standardFont;
    		font-weight: 300;
    		color: #ffffff;
    		text-shadow: 0 3px 0 rgba(0, 0, 0, 1);
    		float: left;
    		margin: 0;
-		}
-
-		.logout{
-			float: right;
-			margin: 40px 10px 0 0;
-			color: white;
 		}
 	}
 }
@@ -63,6 +59,55 @@ header{
 	.border-radius(4px);
 	min-height: 500px;
 	padding: 20px;
+}
+
+.footer{
+	background: #393228;
+	border-top: 5px solid #544a3c;
+
+	.content{
+		width: 940px;
+		margin: 0 auto;
+
+		.brand{
+			text-shadow: none;
+			color: white;
+		}
+
+		.nav{
+			a{
+				color: white;
+				text-shadow: none;
+			}
+		}
+	}
+}
+
+#login{
+	background: url('/assets/images/lil_fiber.png') repeat center top #ffffff;
+	border: 5px solid lighten(#393228, 60%);
+	width: 400px;
+	margin: 100px auto;
+	padding: 20px;
+}
+
+#home{
+	.thumbnails{
+		.thumbnail{
+
+			text-align: center;
+
+			h3{
+				font-family: @standardFont;
+				font-weight: 300;
+				margin: 5px;
+			}
+
+			p{
+				margin-bottom: 5px;
+			}
+		}
+	}
 }
 
 #child-summary{

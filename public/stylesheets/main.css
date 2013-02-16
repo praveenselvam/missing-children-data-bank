@@ -32,21 +32,30 @@ body {
 }
 body {
   background: url('/assets/images/main-bg.jpg') repeat center top #ffffff;
-  padding-top: 45px;
 }
-body .navbar-fixed-top {
+body .top-nav-bar {
   background-color: #d3cbc0;
+  border-top: 5px solid #544a3c;
   border-bottom: 5px solid #544a3c;
+  *zoom: 1;
+  margin-bottom: 10px;
 }
-body .navbar-fixed-top .center {
+body .top-nav-bar:before,
+body .top-nav-bar:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+body .top-nav-bar:after {
+  clear: both;
+}
+body .top-nav-bar .center {
   width: 940px;
   margin: 0 auto;
 }
 header {
   height: 100px;
   background: #393228;
-  margin: 0 0 10px;
-  border-bottom: 5px solid #544a3c;
 }
 header .content {
   width: 940px;
@@ -68,11 +77,6 @@ header .content h1 {
   float: left;
   margin: 0;
 }
-header .content .logout {
-  float: right;
-  margin: 40px 10px 0 0;
-  color: white;
-}
 .main-container {
   background-color: white;
   border: 5px solid #544a3c;
@@ -81,6 +85,40 @@ header .content .logout {
   border-radius: 4px;
   min-height: 500px;
   padding: 20px;
+}
+.footer {
+  background: #393228;
+  border-top: 5px solid #544a3c;
+}
+.footer .content {
+  width: 940px;
+  margin: 0 auto;
+}
+.footer .content .brand {
+  text-shadow: none;
+  color: white;
+}
+.footer .content .nav a {
+  color: white;
+  text-shadow: none;
+}
+#login {
+  background: url('/assets/images/lil_fiber.png') repeat center top #ffffff;
+  border: 5px solid #d3cbc0;
+  width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+}
+#home .thumbnails .thumbnail {
+  text-align: center;
+}
+#home .thumbnails .thumbnail h3 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+  margin: 5px;
+}
+#home .thumbnails .thumbnail p {
+  margin-bottom: 5px;
 }
 #child-summary .profile-picture img {
   width: 210px;

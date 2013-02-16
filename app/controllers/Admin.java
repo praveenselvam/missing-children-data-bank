@@ -42,9 +42,8 @@ public class Admin extends Controller{
 	}
 	
 	public static Result photo(Long childId)
-	{
-		
-		
+	{	
+		// stream from db as blob
 		File _f = new File(ImageUtils.getTempDirectory()+childId+".png");
 		if(!_f.exists())
 		{
@@ -72,6 +71,8 @@ public class Admin extends Controller{
 		if(photo!=null)
 		{			
 			//System.out.println(photo.getContentType());
+			// filter by image size and types
+			// store to db as blob.
 			File _f = photo.getFile();
 			try
 			{

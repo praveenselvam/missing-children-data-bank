@@ -1,17 +1,16 @@
 
 @main("homePage"){
-	<div>
-		Welcome home!
-		<div>
-			<b>Summary</b>
-			<ul>
-				@for(home <- models.Home.all()){
-					<li><a href="#">@home.name</a> houses @home.residents.size() resident(s)</li>
-				}
-			</ul>		
-		</div>
-		<div>
-			<a href="/child">Add Child</a>
-		</div>
+	<div id="home">
+		<ul class="thumbnails">
+			@for(home <- models.Home.all()){
+			  <li class="span4">
+			    <div class="thumbnail">
+			      <img data-src="holder.js/300x200" alt="">
+			      <h3>@home.name</h3>
+			      <p>@home.residents.size() resident(s)</p>
+			    </div>
+			  </li>
+			}
+		</ul>
 	</div>
 }

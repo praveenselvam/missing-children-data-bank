@@ -1,49 +1,76 @@
 @(form: Form[models.Child],homes: List[models.Home])
 
 @main("addchild"){
-	<div>
+	<div id="add-child">
+
+		<h2>Add a New Child</h2>
+
 		@if(form.hasGlobalErrors) { 
-	            <p class="error">
-	                @form.globalError.message
-	            </p>
-	        }
+	    <p class="error">
+	        @form.globalError.message
+	    </p>
+	  }
 	        
-		@helper.form(routes.Admin.addChild) {
-		
+		@helper.form(routes.Admin.addChild, 'class -> "form-horizontal") {
 			<fieldset>
-				<legend>Basic information about the child.</legend>
-				<dl class="field-list">
-					<dd><label>Name</label><input type="text" name="name" placeholder="Name" value="@form("name").value"></dd>
-					<dd>
-						<label>Age</label><input type="text" name="age" value="@form("age").value">
-						<span>Date of Birth (DOB)</span>&nbsp;<input type="text" id="dob" name="dob" value="@form("dob").value" class="datepicker">
-					</dd>
-					<dd>
-						<label></label><i>aproximate age if DOB is not known</i>
-					</dd>					
-					<dd>
-						<label>Gender</label>
+				<legend>Basic Information</legend>
+				
+				<!-- Name -->
+				<div class="control-group">
+					<label class="control-label" for="inputName">Name:</label>
+			    <div class="controls">
+			      <input type="text" id="inputName" placeholder="Name" value="@form("name").value" name="name" />
+			    </div>
+			  </div>
+
+		    <!-- Gender -->
+		    <div class="control-group">
+					<label class="control-label" for="gender">Gender:</label>
+			    <div class="controls">
 						<select name="gender" id="gender">
 							<option value="M">Male</option>
 							<option value="F">Female</option>
-						</select>														
-					</dd>
-					<dd></dd>
-				</dl>
-	        </fieldset>
-	        <fieldset>
-	        	<legend>Which home is the child being placed in?</legend>
-	        	<label></label>
-	            <select name="home" id="home">
-	            	@for(h <- homes){
-	            		<option value="@h.id">@h.name</option>
-	            	}
-	            </select><br>
+						</select>
+			    </div>
+			  </div>
+
+		    <!-- Date of Birth -->
+		    <div class="control-group">
+					<label class="control-label" for="dob">Date of Birth:</label>
+			    <div class="controls">
+			      <input type="text" id="dob" value="@form("dob").value" class="datepicker" name="dob" />
+			      <span class="help-inline">If DOB is not known, leave this blank and enter approximate age below.</span>
+			    </div>
+			  </div>
+
+		    <!-- Age -->
+		    <div class="control-group">
+					<label class="control-label" for="inputAge">Age:</label>
+			    <div class="controls">
+			      <input type="text" id="inputAge" placeholder="Age" value="@form("age").value" name="age" />
+			    </div>
+			  </div>
+
+		    <!-- Home -->
+		    <div class="control-group">
+					<label class="control-label" for="inputAge">Presently at:</label>
+			    <div class="controls">
+			      <select name="home" id="home">
+			      	@for(h <- homes){
+	          		<option value="@h.id">@h.name</option>
+	          	}
+			      </select>
+			    </div>
+			  </div>
+
+			  <!-- Actions -->
+			  <div class="control-group">
+			  	<div class="controls">
+			  		<input type="submit" class="btn primary" value="Next">
+			  	</div>
+			  </div>
+
 			</fieldset>
-			<div class="actions">
-					<input type="submit" class="btn primary" value="Next">					
-			</div>			    
 		}
 	</div>
-	
 }

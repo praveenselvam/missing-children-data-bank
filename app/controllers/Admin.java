@@ -44,7 +44,7 @@ public class Admin extends Controller{
 	
 	public static Result newChild()
 	{
-		return ok(views.html.admin.child.render(form(Child.class),Home.all()));
+		return ok(views.html.admin.child.render(form(Child.class),Home.all(),false));
 	}
 	
 	public static Result photo(Long childId)
@@ -62,24 +62,33 @@ public class Admin extends Controller{
 	
 	public static Result addChild()
 	{
-		Form<Child> addChildForm = form(Child.class).bindFromRequest();		
+		Form<Child> addChildForm = form(Child.class).bindFromRequest();
 		
-		if(addChildForm.hasErrors())
-		{
-			/*Map<String, List<ValidationError>> errors = addChildForm.errors();
-			
-			for(Entry<String, List<ValidationError>> error : errors.entrySet() )
-			{
-				Logger.info(error.getKey() + " " + error.getValue().get(0).message());				
-			}*/			
-			return ok(views.html.admin.child.render(addChildForm,Home.all()));
-		}		
-		
+		String home = form().bindFromRequest().get("home");
 		String name = form().bindFromRequest().get("name");
 		String age = form().bindFromRequest().get("age");
 		String dob = form().bindFromRequest().get("dob");
 		String gender = form().bindFromRequest().get("gender");
-		String home = form().bindFromRequest().get("home");
+		
+		int iAge = -1;
+		try{iAge = Integer.parseInt(age);}catch(Exception e){};
+		
+		Home _home = Home.findById(Long.valueOf(home));
+		
+		boolean noErrors = true;
+		noErrors = (_home != null && _home.id > 0);
+		
+		noErrors &= (name!=null && !name.trim().isEmpty());
+		
+		//Logger.info("name hasErrors ["+noErrors+"]"+name);
+		
+		noErrors &= (iAge>0);
+		//Logger.info("age hasErrors ["+noErrors+"] + ["+iAge+"]");
+				
+		if(!noErrors)
+		{						
+			return ok(views.html.admin.child.render(addChildForm,Home.all(),noErrors));
+		}	
 		
 		//Logger.debug(home + " home id from ui");
 		
@@ -91,10 +100,10 @@ public class Admin extends Controller{
 		String state = form().bindFromRequest().get("nativeState");
 		
 		Child c = Child.create(name,
-							   Integer.valueOf(age), 
+							   iAge, 
 							   new Date(), 
 							   gender,
-							   Home.findById(Long.valueOf(home)),
+							   _home,
 							   cwcId,
 							   homeAdmissionId,
 							   parent,

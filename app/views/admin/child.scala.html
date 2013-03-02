@@ -1,4 +1,4 @@
-@(form: Form[models.Child],homes: List[models.Home])
+@(form: Form[models.Child],homes: List[models.Home],hasErrors: Boolean)
 
 @main("addchild"){
 	<div id="add-child">
@@ -7,7 +7,7 @@
 
 		@if(form.hasErrors) { 
 	    <p class="error">
-	        
+	        Name,age and presently at are mandatory fields
 	    </p>
 	  }
 	        

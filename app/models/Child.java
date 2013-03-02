@@ -24,8 +24,12 @@ public class Child extends AuditedModel{
 	 * It is possible that none of the below could 
 	 * be known.
 	 */
+	@Constraints.Required(message="Name is required")
 	public String name;
+	
+	@Constraints.Required(message="Age is required")
 	public int age;
+	
 	public Date dob;
 	
 	public String cwcId,homeAdmissionId,parent,nativeTown,nativeState,status;
@@ -37,7 +41,7 @@ public class Child extends AuditedModel{
 	public List<Language> speaks = new ArrayList<Language>();
 	
 	@OneToOne
-	@Constraints.Required
+	//@Constraints.Required
 	public Home home;
 	
 	public void fill()

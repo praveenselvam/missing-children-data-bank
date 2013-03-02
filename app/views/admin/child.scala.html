@@ -5,9 +5,9 @@
 
 		<h2>Add a New Child</h2>
 
-		@if(form.hasGlobalErrors) { 
+		@if(form.hasErrors) { 
 	    <p class="error">
-	        @form.globalError.message
+	        
 	    </p>
 	  }
 	        
@@ -20,6 +20,7 @@
 				<label class="control-label" for="inputName">Name:</label>
 			    <div class="controls">
 			      <input type="text" id="inputName" placeholder="Name" value="@form("name").value" name="name" />
+			      
 			    </div>
 			  </div>
 
@@ -92,7 +93,7 @@
 			<div class="control-group">
 				<label class="control-label" for="photo">State:</label>
 			    <div class="controls">
-			    	<input type="text" id="state" placeholder="State" value="@form("state").value" name="state" />
+			    	<input type="text" id="nativeState" placeholder="State" value="@form("nativeState").value" name="nativeState" />
 			    </div>
 			</div>
 		    <!-- Photo -->

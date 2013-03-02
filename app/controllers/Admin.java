@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.imageio.ImageIO;
 
@@ -25,6 +27,7 @@ import models.Photo;
 import models.Transfer;
 import play.Logger;
 import play.data.Form;
+import play.data.validation.ValidationError;
 import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Http.MultipartFormData.FilePart;
@@ -59,7 +62,18 @@ public class Admin extends Controller{
 	
 	public static Result addChild()
 	{
-		//Form<Child> addChildForm = form(Child.class).bindFromRequest();		
+		Form<Child> addChildForm = form(Child.class).bindFromRequest();		
+		
+		if(addChildForm.hasErrors())
+		{
+			/*Map<String, List<ValidationError>> errors = addChildForm.errors();
+			
+			for(Entry<String, List<ValidationError>> error : errors.entrySet() )
+			{
+				Logger.info(error.getKey() + " " + error.getValue().get(0).message());				
+			}*/			
+			return ok(views.html.admin.child.render(addChildForm,Home.all()));
+		}		
 		
 		String name = form().bindFromRequest().get("name");
 		String age = form().bindFromRequest().get("age");
@@ -74,7 +88,7 @@ public class Admin extends Controller{
 		String homeAdmissionId = form().bindFromRequest().get("homeAdmissionId");
 		String parent = form().bindFromRequest().get("parent");
 		String nativeTown = form().bindFromRequest().get("nativeTown");
-		String state = form().bindFromRequest().get("state");
+		String state = form().bindFromRequest().get("nativeState");
 		
 		Child c = Child.create(name,
 							   Integer.valueOf(age), 

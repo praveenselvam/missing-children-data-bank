@@ -1,31 +1,63 @@
 @main("reports"){
 
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    google.load('visualization', '1', {packages: ['corechart']});
+  </script>
 	<script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
+      // var data = google.visualization.arrayToDataTable([
+      //   ['Location', 'Number of Children'],
+      //   ['Chennai Area', 83 ],
+      //   ['Madurai Area', 32 ],
+      //   ['Not known', 29 ],
+      //   ['Vilupuram Area', 27 ],
+      //   ['Coimbatore Area', 24 ],
+      //   ['Karnataka', 19 ],
+      //   ['Andhra Pradesh', 16 ],
+      //   ['Madhya Pradesh', 4 ]
+      // ]);
+    
+
+    function drawVisualization() {
+      // Some raw data (not necessarily accurate)
       var data = google.visualization.arrayToDataTable([
-        ['Location', 'Number of Children'],
-        ['Chennai Area', 83 ],
-        ['Madurai Area', 32 ],
-        ['Not known', 29 ],
-        ['Vilupuram Area', 27 ],
-        ['Coimbatore Area', 24 ],
-        ['Karnataka', 19 ],
-        ['Andhra Pradesh', 16 ],
-        ['Madhya Pradesh', 4 ]
+        ['Location', 'Number of Children', 'Avg. time period for which the child has been missing'],
+        ['Chennai Area', 83, 11.3 ],
+        ['Madurai Area', 32, 8.7 ],
+        ['Not known', 29, 2.5 ],
+        ['Vilupuram Area', 27, 4.2 ],
+        ['Coimbatore Area', 24, 19.3 ],
+        ['Karnataka', 19, 3.2 ],
+        ['Andhra Pradesh', 16, 14.1 ],
+        ['Madhya Pradesh', 4, 16.8 ]
       ]);
 
       var options = {
-        vAxis: { title: 'Child\'s Hometown' },
-        hAxis: { title: 'Number of Children' },
-        legend: 'none'
+        vAxes: {
+          0: { title: 'Number of Children' },
+          1: { title: 'Avg. time period for which the child has been missing' }
+        },
+        hAxis: {
+          title: "Hometown of Child",
+          slantedText: true
+        },
+        seriesType: "bars",
+        series: {
+          0: {
+            color: '#69D2E7'
+          },
+          1: {
+            color: '#FA6900',
+            type: "line",
+            targetAxisIndex: 1
+          }
+        }
       };
 
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
       chart.draw(data, options);
     }
+    google.setOnLoadCallback(drawVisualization);
   </script>
 
 	<div id="reports">

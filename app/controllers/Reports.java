@@ -11,4 +11,9 @@ public class Reports extends Controller{
 	{
 		return ok(views.html.reports.index.render());
 	}
+
+	public static Result poster()
+	{
+		return ok(views.html.reports.poster.render());
+	}
 }

@@ -192,7 +192,7 @@ public class Admin extends Controller{
 		additionalInfo.add(i);
 		c.addInformation(additionalInfo);*/
 		c.fill();
-		return ok(views.html.admin.summary.render(c));
+		return redirect(routes.Admin.childSummary(c.id));
 	}
 	
 	public static Result allChildren()

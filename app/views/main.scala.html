@@ -66,12 +66,27 @@
 				$(".datepicker" ).each(
 					function()
 					{
-						$(this).datepicker();
+						$(this).datepicker(
+								{
+									maxDate: new Date(),
+									onSelect: function(selectedDate){
+										if($('#inputAge').length > 0)
+										{
+											var parts = selectedDate.split('/');
+											var birthDay = new Date(selectedDate);
+											var currentDate = new Date();
+											var age = currentDate.getFullYear() - birthDay.getFullYear();
+											var m = currentDate.getMonth() - birthDay.getMonth();
+											if( m < 0 || (m === 0 && currentDate.getDate() < birthDay.getDate())){ age--; }
+											$('#inputAge').attr('value',age);
+										}
+									}
+								}
+						);
 					}
 				);
 			});
-		</script>
-      
+		</script>      
   </body>
     
 </html>

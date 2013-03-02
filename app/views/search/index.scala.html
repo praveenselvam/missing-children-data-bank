@@ -1,4 +1,4 @@
-@(children: List[models.Child],currentHome: models.Home)
+@(children: List[models.Child],currentHome: models.Home,nameQuery: String,age: Integer)
 @main("searchIndex") {
 	<div id="listing">
 		<h1>
@@ -6,15 +6,18 @@
 				All Homes
 			}else{
 				@currentHome.name
+			}
+			@if(nameQuery !=null && nameQuery.length>0){
+				matching @nameQuery
 			} 
 		</h1>
-		<br/>
+		<br/>		
 		<div class="well well-small filter">
 			<label class="pull-left children-count">Showing @children.size() Children</label>
-			<form class="form-inline">
+			<form class="form-inline" method="POST" action="@routes.Search.byName()">
 				<div class="pull-right">
 				  <label>Children from:</label>
-				  <select>
+				  <select name="home" id="home">
 				  	  <option value="-1">Any</option>	
 					  @for(home <- models.Home.all()){
 					  	@if(home.id == currentHome.id){					  						  
@@ -26,9 +29,10 @@
 				  </select>
 				  &nbsp;&nbsp;&nbsp;
 				  <label>Age:</label>
-				  <input type="text" class="input-mini" />
+				  <input type="text" class="input-mini" name="age" id="age" value="@if(age>0){@age}" />
 				  <label>Years</label>
 				</div>
+				<input type="hidden" name="name" id="name" value="@nameQuery"/>
 			</form>
 		</div>
 		</br/>

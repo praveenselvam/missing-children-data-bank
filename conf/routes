@@ -26,6 +26,7 @@ GET		/photo/:id					controllers.Admin.photo(id: Long)
 
 # Search
 GET		/search/:id					controllers.Search.index(id: Long)
+POST	/search						controllers.Search.byName()
 
 #Reports
 GET		/reports					controllers.Reports.index()

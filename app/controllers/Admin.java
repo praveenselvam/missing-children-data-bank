@@ -67,6 +67,9 @@ public class Admin extends Controller{
 		String gender = form().bindFromRequest().get("gender");
 		String home = form().bindFromRequest().get("home");
 		
+		//Logger.debug(home + " home id from ui");
+		
+		
 		String cwcId = form().bindFromRequest().get("cwcId");
 		String homeAdmissionId = form().bindFromRequest().get("homeAdmissionId");
 		String parent = form().bindFromRequest().get("parent");

@@ -30,9 +30,9 @@
 					  <li><a href="/reports"><i class="icon-align-left"></i> Reports</a></li>
 					  <li><a href="/child"><i class="icon-plus"></i> Add Child</a></li>
 					</ul>
-					<form class="form-search pull-left">
+					<form class="form-search pull-left" method="POST" action="@routes.Search.byName()">
 					  <div class="input-append">
-					    <input type="text" class="span3 search-query" placeholder="Type a child's name">
+					    <input type="text" class="span3 search-query" placeholder="Type a child's name" id="name" name="name">
 					    <button type="submit" class="btn">Search</button>
 					  </div>
 					</form>

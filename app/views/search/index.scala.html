@@ -1,5 +1,48 @@
 @main("searchIndex") {
-	<div id="home">
-		<h1>List of all children</h1>
+	<div id="listing">
+		<h1>Children from All Homes</h1>
+		<br/>
+		<div class="well well-small filter">
+			<label class="pull-left children-count">Showing 10 Children</label>
+			<form class="form-inline">
+				<div class="pull-right">
+				  <label>Children from:</label>
+				  <select>
+				  	<option value="">All Homes</option>
+				  	<option value="">Royapuram Boys Home</option>
+				  	<option value="">Other Boys Home</option>
+				  </select>
+				  &nbsp;&nbsp;&nbsp;
+				  <label>Age:</label>
+				  <input type="text" class="input-mini" />
+				  <label>Years</label>
+				</div>
+			</form>
+		</div>
+		</br/>
+		<table class="table table-striped children-listing-table">
+      <thead>
+        <tr>
+          <th class="index-column">#</th>
+          <th class="photo-column"></th>
+          <th class="name-column">First Name</th>
+          <th class="gender-column">Gender</th>
+          <th class="age-column">Age</th>
+          <th class="hometown-column">Hometown</th>
+        </tr>
+      </thead>
+      <tbody>
+	      @for( a <- 1 until 10){
+	        <tr>
+	          <td class="index-column">@a</td>
+	          <td class="photo-column"><img src="http://www.onfilm.co.nz/wp-content/uploads/2010/03/50912-BOY_posters3-75x75.jpg" /></td>
+	          <td class="name-column"><a href="javascript: void(0);">Senthil Kaliappan</a></td>
+	          <td class="gender-column">Male</td>
+	          <td class="age-column">12</td>
+	          <td class="hometown-column">Vaniyampalayam, Viluppuram Area</td>
+	        </tr>
+	      }
+      </tbody>
+    </table>
 	</div>
 }

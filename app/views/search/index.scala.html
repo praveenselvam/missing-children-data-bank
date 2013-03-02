@@ -1,5 +1,30 @@
 @main("searchIndex") {
-	<div id="home">
+	<div id="listing">
 		<h1>List of all children</h1>
+		<br/>
+		<table class="table table-striped children-listing-table">
+      <thead>
+        <tr>
+          <th class="index-column">#</th>
+          <th class="photo-column"></th>
+          <th class="name-column">First Name</th>
+          <th class="gender-column">Gender</th>
+          <th class="age-column">Age</th>
+          <th class="hometown-column">Hometown</th>
+        </tr>
+      </thead>
+      <tbody>
+	      @for( a <- 1 until 10){
+	        <tr>
+	          <td>@a</td>
+	          <td><img src="http://www.onfilm.co.nz/wp-content/uploads/2010/03/50912-BOY_posters3-75x75.jpg" /></td>
+	          <td>Senthil Kaliappan</td>
+	          <td>Male</td>
+	          <td>12</td>
+	          <td>Vaniyampalayam, Viluppuram Area</td>
+	        </tr>
+	      }
+      </tbody>
+    </table>
 	</div>
 }

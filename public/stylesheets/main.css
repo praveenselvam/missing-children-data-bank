@@ -130,3 +130,19 @@ header .content h1 {
 #child-summary .conducted-on {
   margin-top: 20px;
 }
+.children-listing-table .index-column {
+  width: 20px;
+}
+.children-listing-table .photo-column {
+  width: 80px;
+  text-align: right;
+}
+.children-listing-table .name-column {
+  width: 300px;
+}
+.children-listing-table .gender-column {
+  width: 80px;
+}
+.children-listing-table .age-column {
+  width: 80px;
+}

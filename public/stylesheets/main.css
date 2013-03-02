@@ -53,6 +53,9 @@ body .top-nav-bar .center {
   width: 940px;
   margin: 0 auto;
 }
+body .form-search {
+  margin: 5px 0 0;
+}
 body .page-wrap {
   background: url('/assets/images/shadow-bg.png') repeat-y center top transparent;
   min-height: 100%;

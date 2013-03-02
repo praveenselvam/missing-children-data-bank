@@ -5,11 +5,13 @@
 			@for(home <- models.Home.all()){
 			  <li class="span4">
 			    <div class="thumbnail">
-			      <img src="/assets/images/mock/home.jpg" alt="@home.name">
-			      <h3>@home.name</h3>
-			      <p class="muted">
-			      	<a href="@routes.Search.index(home.id)"><i>@home.residents.size() resident(s)</i></a>
-			      </p>
+			    	<a href="@routes.Search.index(home.id)">
+				      <img src="/assets/images/mock/home.jpg" alt="@home.name">
+				      <h3>@home.name</h3>
+				      <p class="muted">
+				      	<i>@home.residents.size() resident(s)</i>
+				      </p>
+				    </a>
 			    </div>
 			  </li>
 			}

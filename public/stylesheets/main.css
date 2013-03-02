@@ -130,6 +130,21 @@ header .content h1 {
 #child-summary .conducted-on {
   margin-top: 20px;
 }
+#listing .filter {
+  *zoom: 1;
+}
+#listing .filter:before,
+#listing .filter:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#listing .filter:after {
+  clear: both;
+}
+#listing .filter .children-count {
+  margin-top: 5px;
+}
 .children-listing-table .index-column {
   width: 20px;
 }
@@ -139,6 +154,9 @@ header .content h1 {
 }
 .children-listing-table .name-column {
   width: 300px;
+}
+.children-listing-table .name-column a {
+  font-weight: bold;
 }
 .children-listing-table .gender-column {
   width: 80px;

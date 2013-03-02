@@ -17,6 +17,8 @@ GET		/child/all					controllers.Admin.allChildren()
 GET		/child/:id					controllers.Admin.childSummary(id: Long)
 GET		/audit/all					controllers.AuditView.index()
 
+GET		/reports					controllers.Admin.reports()
+
 GET		/transfer/all				controllers.Admin.allTransfers()
 GET		/transfer/:id				controllers.Admin.beginTransfer(id: Long)
 POST	/transfer/:id				controllers.Admin.doTransfer(id: Long)

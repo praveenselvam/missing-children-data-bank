@@ -37,6 +37,11 @@ public class Admin extends Controller{
 	{
 		return ok(views.html.admin.home.render());
 	}
+
+	public static Result reports()
+	{
+		return ok(views.html.admin.reports.render());
+	}
 	
 	public static Result newChild()
 	{

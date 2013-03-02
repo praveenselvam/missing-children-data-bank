@@ -134,6 +134,18 @@ header .content h1 {
 #child-summary .conducted-on {
   margin-top: 20px;
 }
+#reports .filter {
+  *zoom: 1;
+}
+#reports .filter:before,
+#reports .filter:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+#reports .filter:after {
+  clear: both;
+}
 #reports #poster-report .child {
   float: left;
   width: 230px;

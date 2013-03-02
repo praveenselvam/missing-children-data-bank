@@ -1,16 +1,28 @@
+@(children: List[models.Child],currentHome: models.Home)
 @main("searchIndex") {
 	<div id="listing">
-		<h1>Children from All Homes</h1>
+		<h1>
+			Children from @if(currentHome.id == -1){
+				All Homes
+			}else{
+				@currentHome.name
+			} 
+		</h1>
 		<br/>
 		<div class="well well-small filter">
-			<label class="pull-left children-count">Showing 10 Children</label>
+			<label class="pull-left children-count">Showing @children.size() Children</label>
 			<form class="form-inline">
 				<div class="pull-right">
 				  <label>Children from:</label>
 				  <select>
-				  	<option value="">All Homes</option>
-				  	<option value="">Royapuram Boys Home</option>
-				  	<option value="">Other Boys Home</option>
+				  	  <option value="-1">Any</option>	
+					  @for(home <- models.Home.all()){
+					  	@if(home.id == currentHome.id){					  						  
+					  		<option value="@home.id" selected>@home.name</option>
+					  	}else{
+					  		<option value="@home.id">@home.name</option>
+					  	}					  				  
+					  }
 				  </select>
 				  &nbsp;&nbsp;&nbsp;
 				  <label>Age:</label>
@@ -22,8 +34,7 @@
 		</br/>
 		<table class="table table-striped children-listing-table">
       <thead>
-        <tr>
-          <th class="index-column">#</th>
+        <tr>          
           <th class="photo-column"></th>
           <th class="name-column">First Name</th>
           <th class="gender-column">Gender</th>
@@ -31,15 +42,16 @@
           <th class="hometown-column">Hometown</th>
         </tr>
       </thead>
-      <tbody>
-	      @for( a <- 1 until 10){
+      <tbody>      	  
+	      @for( child <- children){
 	        <tr>
-	          <td class="index-column">@a</td>
-	          <td class="photo-column"><img src="http://www.onfilm.co.nz/wp-content/uploads/2010/03/50912-BOY_posters3-75x75.jpg" /></td>
-	          <td class="name-column"><a href="javascript: void(0);">Senthil Kaliappan</a></td>
-	          <td class="gender-column">Male</td>
-	          <td class="age-column">12</td>
-	          <td class="hometown-column">Vaniyampalayam, Viluppuram Area</td>
+	          <td class="photo-column">
+	          	<img src="/photo/@child.id" width="75" height="75" class="img-polaroid">
+	          </td>
+	          <td class="name-column"><a href="@routes.Admin.childSummary(child.id)">@child.name</a></td>
+	          <td class="gender-column">@child.gender</td>
+	          <td class="age-column">@child.age</td>
+	          <td class="hometown-column">@child.nativeTown,@child.nativeState</td>
 	        </tr>
 	      }
       </tbody>

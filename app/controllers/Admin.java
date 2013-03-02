@@ -46,10 +46,10 @@ public class Admin extends Controller{
 	
 	public static Result photo(Long childId)
 	{	
-		// stream from db as blob
-		
+		// stream from db as blob		
 		Photo thumbnail = Photo.findByChildId(childId);
-		if(thumbnail == null)
+		//Logger.info(thumbnail.childId + " Child ID" + thumbnail.id + " photo id , image" + (thumbnail.image == null));
+		if(thumbnail == null || thumbnail.image == null)
 		{
 			Logger.info("Thumbnain is null");
 			thumbnail = new Photo(-1L, new byte[]{ });

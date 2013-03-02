@@ -17,7 +17,7 @@
 				
 				<!-- Name -->
 				<div class="control-group">
-					<label class="control-label" for="inputName">Name:</label>
+				<label class="control-label" for="inputName">Name:</label>
 			    <div class="controls">
 			      <input type="text" id="inputName" placeholder="Name" value="@form("name").value" name="name" />
 			    </div>
@@ -25,18 +25,18 @@
 
 		    <!-- Gender -->
 		    <div class="control-group">
-					<label class="control-label" for="gender">Gender:</label>
+				<label class="control-label" for="gender">Gender:</label>
 			    <div class="controls">
 						<select name="gender" id="gender">
 							<option value="M">Male</option>
 							<option value="F">Female</option>
 						</select>
 			    </div>
-			  </div>
+			</div>
 
 		    <!-- Date of Birth -->
 		    <div class="control-group">
-					<label class="control-label" for="dob">Date of Birth:</label>
+				<label class="control-label" for="dob">Date of Birth:</label>
 			    <div class="controls">
 			      <input type="text" id="dob" value="@form("dob").value" class="datepicker" name="dob" />
 			      <span class="help-inline">If DOB is not known, leave this blank and enter approximate age below.</span>
@@ -63,14 +63,47 @@
 			    </div>
 			  </div>
 
-		    <!-- Home -->
+			<!-- Home & parent information -->
+			<div class="control-group">
+				<label class="control-label" for="photo">CWC ID:</label>
+			    <div class="controls">
+			    	<input type="text" id="cwcId" placeholder="CWC ID" value="@form("cwcId").value" name="cwcId" />
+			    </div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="photo">Home Admission ID:</label>
+			    <div class="controls">
+			    	<input type="text" id="homeAdmissionId" placeholder="Home Admission ID" value="@form("homeAdmissionId").value" name="homeAdmissionId" />
+			    </div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="photo">Parent/Gaurdian Name:</label>
+			    <div class="controls">
+			    	<input type="text" id="parent" placeholder="Parent/Gaurdian name" value="@form("parent").value" name="parent" />
+			    </div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="photo">Native Town:</label>
+			    <div class="controls">
+			    	<input type="text" id="nativeTown" placeholder="Native Town" value="@form("nativeTown").value" name="nativeTown" />
+			    </div>
+			</div>
+						
+			<div class="control-group">
+				<label class="control-label" for="photo">State:</label>
+			    <div class="controls">
+			    	<input type="text" id="state" placeholder="State" value="@form("state").value" name="state" />
+			    </div>
+			</div>
+		    <!-- Photo -->
 		    <div class="control-group">
 					<label class="control-label" for="photo">Photo:</label>
 			    <div class="controls">
 			    	<input type="file" id="photo" name="photo"/>
 			    </div>
-			  </div>
-
+			 </div>
+			
+				
 			  <!-- Actions -->
 			  <div class="control-group">
 			  	<div class="controls">

@@ -23,6 +23,7 @@ import models.Home;
 import models.Interview;
 import models.Photo;
 import models.Transfer;
+import play.Logger;
 import play.data.Form;
 import play.mvc.*;
 import play.mvc.Http.MultipartFormData;
@@ -50,7 +51,7 @@ public class Admin extends Controller{
 		Photo thumbnail = Photo.findByChildId(childId);
 		if(thumbnail == null)
 		{
-			System.out.println("Thumbnain is null");
+			Logger.info("Thumbnain is null");
 			thumbnail = new Photo(-1L, new byte[]{ });
 		}
 		return ok(thumbnail.image);
@@ -58,7 +59,7 @@ public class Admin extends Controller{
 	
 	public static Result addChild()
 	{
-		Form<Child> addChildForm = form(Child.class).bindFromRequest();		
+		//Form<Child> addChildForm = form(Child.class).bindFromRequest();		
 		
 		String name = form().bindFromRequest().get("name");
 		String age = form().bindFromRequest().get("age");
@@ -66,11 +67,11 @@ public class Admin extends Controller{
 		String gender = form().bindFromRequest().get("gender");
 		String home = form().bindFromRequest().get("home");
 		
-		String cwcId = "test-cwc/ID";
-		String homeAdmissionId = "1023";
-		String parent = "test-parent";
-		String nativeTown = "test-native";
-		String state = "TN";
+		String cwcId = form().bindFromRequest().get("cwcId");
+		String homeAdmissionId = form().bindFromRequest().get("homeAdmissionId");
+		String parent = form().bindFromRequest().get("parent");
+		String nativeTown = form().bindFromRequest().get("nativeTown");
+		String state = form().bindFromRequest().get("state");
 		
 		Child c = Child.create(name,
 							   Integer.valueOf(age), 
@@ -88,10 +89,7 @@ public class Admin extends Controller{
 		FilePart photo = formdata.getFile("photo");
 		
 		if(photo!=null)
-		{			
-			//System.out.println(photo.getContentType());
-			// filter by image size and types
-			// store to db as blob.
+		{	
 			File _f = photo.getFile();
 			try
 			{
@@ -113,13 +111,15 @@ public class Admin extends Controller{
 				
 				byte[] tn = bos.toByteArray();
 				
-				System.out.println(tn.length +  " size of image for " + c.id);
+				Logger.info(tn.length +  " size of image for " + c.id);
 				
 				
 				Photo childThumbnail = new Photo(c.id, tn);
 				childThumbnail.save();
 							
-			}catch(Exception e){}
+			}catch(Exception e){
+				Logger.error(e.getMessage() + "");
+			}
 		}
 		return ok(views.html.admin.interview.render(form(Interview.class),c));
 		

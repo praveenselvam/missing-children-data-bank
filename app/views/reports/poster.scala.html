@@ -6,7 +6,54 @@
 
     <h2>Children missing from Chennai Area</h2>
 
-    <div id="chart_div" style="height: 500px;"></div>
+    <div id="poster-report">
+
+      @for( a <- 1 until 20){
+
+        <div class="child">
+          
+          <img src="/assets/images/mock/child-@{
+            var r = new scala.util.Random
+            r.nextInt(11) + 1
+          }.jpg" />
+
+          <div class="info">
+            <div class="pad">
+              <h4 class="name">Karthikeyan</h4>
+              <div class="details">M, @{
+                var r = new scala.util.Random
+                r.nextInt(5) + 7
+              } years</div>
+            </div>
+          </div>
+          
+          <div class="missing-info">
+            <div class="caption">Missing for</div>
+            <div class="count">@{
+              var r = new scala.util.Random
+              r.nextInt(50) + 100
+            }</div>
+            <div class="days">Days</div>
+          </div>
+
+        </div>
+
+      }
+
+    </div>
 
 	</div>
+
+  <script>
+
+    var $container = $('#poster-report');
+
+    $container.imagesLoaded( function(){
+      $container.masonry({
+        itemSelector : '.child'
+      });
+    });
+
+  </script>
+
 }

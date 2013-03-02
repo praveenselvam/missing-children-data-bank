@@ -133,7 +133,71 @@ header{
 }
 
 #reports{
-	
+
+	#poster-report{
+		.child{
+			float: left;
+			width: 230px;
+			margin: 2px;
+			position: relative;
+
+			.info{
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				background: rgba(0, 0, 0, .8);
+				color: white;
+
+				.pad{
+					margin: 5px 10px 2px;
+				}
+
+				h4{
+					margin: 0;
+					font-size: 18px;
+					font-weight: 300;
+				}
+
+				.details{
+					font-size: 12px;
+					color: #999;
+				}
+			}
+
+			.missing-info{
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				width: 80px;
+				text-align: center;
+				background: darken(#464646, 20%);
+				border: 1px solid lighten(black, 25%);
+				.border-radius(4px);
+
+				.caption{
+					color: #999;
+					font-size: 9px;
+					text-transform: uppercase;
+					line-height: 1em;
+					padding: 2px 5px;
+				}
+
+				.count{
+					font-size: 24px;
+					font-weight: 300;
+					margin-top: 3px;
+					color: white;
+				}
+
+				.days{
+					text-transform: uppercase;
+					font-size: 10px;
+					color: darken(white, 20%);
+				}
+			}
+		}
+	}
+
 }
 
 #listing{

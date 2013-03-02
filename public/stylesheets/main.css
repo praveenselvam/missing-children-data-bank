@@ -59,6 +59,7 @@ body .form-search {
 body .page-wrap {
   background: url('/assets/images/shadow-bg.png') repeat-y center top transparent;
   min-height: 100%;
+  padding-bottom: 60px;
 }
 header {
   height: 100px;

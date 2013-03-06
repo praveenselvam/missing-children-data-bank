@@ -25,7 +25,9 @@
 	  	</header>
 	  	<div class="navbar top-nav-bar">
 	  		<div class="center">
-		    	<ul class="nav">
+		    	
+		    	@if(session.get("SESSION_KEY") !=null)	{
+		    		<ul class="nav">
 					  <li class="active"><a href="/"><i class="icon-home"></i> Home</a></li>
 					  <li><a href="/reports"><i class="icon-align-left"></i> Reports</a></li>
 					  <li><a href="/child"><i class="icon-plus"></i> Add Child</a></li>
@@ -35,11 +37,16 @@
 					    <input type="text" class="span3 search-query" placeholder="Type a child's name" id="name" name="name">
 					    <button type="submit" class="btn">Search</button>
 					  </div>
-					</form>
-		    	<ul class="nav pull-right">
-					  <li><a href="/logout"><i class="icon-off"></i> Logout</a></li>
-					</ul>
-				</div>
+					</form>	
+			    	<ul class="nav pull-right">
+						  <li><a href="/logout"><i class="icon-off"></i> Logout</a></li>
+						</ul>					
+					}else{
+						<ul class="nav">
+							<li>&nbsp;</li>
+						</ul>	
+					}
+				</div>					
 			</div>
 	  	<div class="main-container container">
 	    	<div class="row">

@@ -43,6 +43,15 @@ public class Global extends GlobalSettings {
 					Ebean.save(homes);
 				}
 			}
+			
+			if(Home.findByName("UN-KNOWN") == null )
+			{
+				List<Object> homes = all.get("unknown-home");
+				if(homes!=null && homes.size()>0)
+				{
+					Ebean.save(homes);
+				}
+			}
 		}
 	}
 

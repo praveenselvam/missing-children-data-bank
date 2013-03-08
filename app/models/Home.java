@@ -16,6 +16,7 @@ import play.db.ebean.Model;
 @Entity
 public class Home extends Model{
 
+		
 	@Id	
 	public Long id;
 	
@@ -42,6 +43,11 @@ public class Home extends Model{
 	public static Home findById(Long id)
 	{
 		return find.byId(id);
+	}
+	
+	public static Home findByName(String name)
+	{
+		return find.where().eq("name", name).findUnique();
 	}
 	
 	public static List<Home> all()

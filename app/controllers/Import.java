@@ -1,8 +1,18 @@
 package controllers;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import models.Child;
 import models.Home;
@@ -10,6 +20,11 @@ import models.Interview;
 import play.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
+import utils.ImportUtils;
+import utils.ImportUtils.ChildUtil;
+import views.html.admin.child;
 
 // intentionally un-secured to facilitate import
 public class Import extends Controller {
@@ -23,93 +38,126 @@ public class Import extends Controller {
 	};
 	
 	public static Result importChild()
+	{	
+		return badRequest("Depricated. use /import/bulk instead");
+	}
+	private static final String[] IMPORT_NAME_KEYS = ImportUtils.IMPORT_NAME_KEYS;
+	public static Result importBulk()
 	{
-		String home = form().bindFromRequest().get("home");
-		String name = form().bindFromRequest().get("name");
-		String age = form().bindFromRequest().get("age");
-		String dob = form().bindFromRequest().get("dob");
-		String gender = form().bindFromRequest().get("gender");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		StringBuilder statusReport = new StringBuilder();
 		
-		String cwcId = form().bindFromRequest().get("cwcId");
-		String homeAdmissionId = form().bindFromRequest().get("homeAdmissionId");
-		String parent = form().bindFromRequest().get("parent");
-		String nativeTown = form().bindFromRequest().get("nativeTown");
-		String state = form().bindFromRequest().get("nativeState");
+		MultipartFormData formdata = request().body().asMultipartFormData();
+		FilePart bulkXml = formdata.getFile("BULK_FILE");
 		
-		String interviewText = form().bindFromRequest().get("interview");
-		String interviewDate = form().bindFromRequest().get("interviewDate");
-		
-		int iAge = -1;
-		try{iAge = Integer.parseInt(age);}catch(Exception e){};
-		
-		int iHomeId = -1;
-		try{iHomeId = Integer.parseInt(home);}catch(Exception e){
-			return badRequest("home was not found for givenId");
-		};
-		
-		Home _home = null;
-		
-		if(home!=null && !home.trim().isEmpty())
+		if(bulkXml ==null)
 		{
-			if("-1".equals(home))
-			{
-				_home = Home.findByName(UNKNOWN_HOME_NAME);
-				Logger.debug(_home.id + " home id");
-			}else{
-				
-				_home = Home.findById((long)iHomeId);
-			}
-		}
-		if(home == null || iAge == -1)
-		{
-			return badRequest("home was not found or age was incorrect");
+			return badRequest("expected xml file with child information");
 		}
 		
-		for(String key : importFieldNames)
+		Document document = null;
+		try
 		{
-			String value = form().bindFromRequest().get(key);
-			if(value == null || value.trim().isEmpty())
+			document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(bulkXml.getFile());			
+			NodeList children = document.getElementsByTagName("child");
+			int childCount = (children == null)?0:children.getLength();
+			
+			
+			
+			for(int i=0;i<childCount;i++)
 			{
-				return badRequest(key + " is expected. null or empty found");
-			}
-			if(importFieldNames[2].equals(key))
-			{
-				value = value.trim();
-				if(!(value.equalsIgnoreCase("M") || value.equalsIgnoreCase("F")))
+				Node child = children.item(i);
+				if(child.getNodeType() == Node.ELEMENT_NODE)
 				{
-					return badRequest(key + " expected M|F");			
+					Element e = (Element) child;
+					String[] params = new String[IMPORT_NAME_KEYS.length];
+					int index =0;
+					for(String key : IMPORT_NAME_KEYS){
+						params[index] = e.getElementsByTagName(key).item(0).getTextContent();
+						if(params[index]!=null){
+							params[index] = params[index].trim();
+						}
+						index++;
+					}
+					
+					String error = ImportUtils.validateChildInput(params);
+					
+					if(error == null)
+					{
+						ChildUtil cu = new ChildUtil(params);
+						
+						Child c = Child.create(cu.getName(),
+								   cu.getAge(), 
+								   new Date(), 
+								   cu.getGender(),
+								   Home.findByName(UNKNOWN_HOME_NAME),
+								   cu.getCwcId(),
+								   cu.getHomeAdmissionId(),
+								   cu.getParent(),
+								   cu.getTown(),
+								   cu.getState()
+								  );
+						c.fill();
+						
+						//Logger.info(String.format("[%s][%s][%s][%s][%s][%s][%s][%s][%s]",params));
+						
+						NodeList interviews = e.getElementsByTagName("interview");
+						int intCount = (interviews == null)?0:interviews.getLength();
+						for(int j=0;j<intCount;j++)
+						{
+							Node interview = interviews.item(j);
+							
+							if(interview!=null && (interview.getNodeType() == Node.ELEMENT_NODE))
+							{
+								Element eI = (Element) interview;
+								Date d = null;
+								try{
+									d = sdf.parse(eI.getElementsByTagName("date").item(0).getTextContent().trim());
+									String text = eI.getElementsByTagName("text").item(0).getTextContent().trim();
+									if(!text.isEmpty())
+									{
+										Interview.create(d, text, c);
+									}
+								}catch(ParseException pe){
+									statusReport.append((String.format("%s ",params[0]))+"\n"+"interview skipped. invalid date,expected MM/DD/yyyy "+"\n");
+								}
+							}
+						}
+					}else{
+						statusReport.append((String.format("[%s][%s][%s][%s][%s][%s][%s][%s][%s]",params))+"\n"+error+"\n");
+					}
 				}
 			}
+			
+		}catch(Exception ioe){
+			Logger.error("ex", ioe);
+			return badRequest("malformed input");
 		}
 		
-		if((interviewText!=null && !interviewText.trim().isEmpty()) && (interviewDate!=null && !interviewDate.trim().isEmpty()))
-		{
-			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-			Date d = null;
-			try{
-				d = sdf.parse(interviewDate);
-			}catch(ParseException pe){
-				return badRequest("interviewDate format is MM/dd/yyyy");
-			}
-		}
-		
-		Child c = Child.create(name,
-				   iAge, 
-				   new Date(), 
-				   gender,
-				   _home,
-				   cwcId,
-				   homeAdmissionId,
-				   parent,
-				   nativeTown,
-				   state
-				  );
-		c.fill();
-		if((interviewText!=null && !interviewText.trim().isEmpty()) && (interviewDate!=null && !interviewDate.trim().isEmpty()))
-		{
-			Interview i = Interview.create(new Date(), interviewText, c);
-		}
-		
-		return ok();
+		return ok(statusReport.toString());
 	}
+
 }
+
+/**
+  	<?xml version="1.0" encoding="UTF-8"?>
+  	<import>
+  		<child>
+  			<name><name>
+  			<age></age>
+  			<dob></dob>
+  			<gender></gender>  			  			
+  			<cwcId></cwcId>
+  			<homeAdmissionId></homeAdmissionId>
+  			<parent></parent>
+  			<town></town>
+  			<state></state>
+  			<interviews>
+  				<interview>
+  					<date/>
+  					<text/>
+  				</interview>
+  			</interviews>
+  		</child>
+  	</import> 
+**/

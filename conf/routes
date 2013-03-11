@@ -34,6 +34,7 @@ GET		/reports/poster				controllers.Reports.poster()
 
 #Import
 POST	/import						controllers.Import.importChild()
+POST	/import/bulk				controllers.Import.importBulk()
 
 
 # Map static resources from the /public folder to the /assets URL path

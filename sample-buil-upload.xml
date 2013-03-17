@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <import>		
 	<child>
-		<name>valid-child</name>
-		<age>10</age>
+		<name>blank age kid</name>
+		<age></age>
 		<dob>03/21/2006</dob>
 		<gender>M</gender>  			  			
 		<cwcId>3123cwcid</cwcId>

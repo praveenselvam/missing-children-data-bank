@@ -14,7 +14,11 @@
 				
 				<a class="btn pull-right" href="/transfer/@child.id"><i class="icon-arrow-right"></i> Transfer</a>
 				<h3>@child.name</h3>
-				<p class="lead">@child.gender, @child.age, Presently at @child.home.name, Transfered : @models.Transfer.byChild(child.id).size() time(s)</p>
+				<p class="lead">@child.gender,@if(child.age == 0){ 
+					age unknown
+					}else{
+					 child.age
+					}, Presently at @child.home.name, Transfered : @models.Transfer.byChild(child.id).size() time(s)</p>
 				<p class="muted conducted-on"><small><em>CWC ID: @child.cwcId, Home AdmissionId: @child.homeAdmissionId</em></small></p>
 				<p class="muted conducted-on"><small><em>Native of: @child.nativeTown, @child.nativeState</em></small></p>
 				<hr/>

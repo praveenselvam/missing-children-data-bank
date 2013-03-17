@@ -13,10 +13,13 @@ public class ImportUtils {
 				return "name is required";
 			}
 			
-			if(params[1] ==null && params[1].isEmpty()) {
-				return "age is required";
-			}else{
-				try{
+			if(params[1] == null && params[1].isEmpty()) {
+				//return "age is required";
+				// lets default to 0 and consider age as unknown
+				// the volunteers can update the age the next time they
+				// see the child / need to add an interview.				
+			}else  if(params[1] != null && !params[1].isEmpty()){
+				try{					
 				int age = Integer.parseInt(params[1]);
 				}catch(NumberFormatException pe){
 					return "age should be a number";
@@ -45,7 +48,7 @@ public class ImportUtils {
 		}
 		
 		public String getName(){return params[0];}
-		public int getAge(){ return Integer.parseInt(params[1]);}		
+		public int getAge(){ return (params[1]==null || params[1].trim().isEmpty())?0:Integer.parseInt(params[1]);}		
 		public String getDob(){ return params[2]; }
 		public String getGender(){ return params[3]; }
 		public String getCwcId(){ return params[4]; }

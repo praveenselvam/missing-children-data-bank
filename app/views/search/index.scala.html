@@ -54,7 +54,13 @@
 	          </td>
 	          <td class="name-column"><a href="@routes.Admin.childSummary(child.id)">@child.name</a></td>
 	          <td class="gender-column">@child.gender</td>
-	          <td class="age-column">@child.age</td>
+	          <td class="age-column">
+	          	@if(child.age == 0) {
+	          		@child.age ( age unknown )
+	          	}else{
+	          		@child.age
+	          	}
+	          </td>
 	          <td class="hometown-column">@child.nativeTown,@child.nativeState</td>
 	        </tr>
 	      }

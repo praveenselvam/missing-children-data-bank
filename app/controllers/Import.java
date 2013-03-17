@@ -138,26 +138,3 @@ public class Import extends Controller {
 	}
 
 }
-
-/**
-  	<?xml version="1.0" encoding="UTF-8"?>
-  	<import>
-  		<child>
-  			<name><name>
-  			<age></age>
-  			<dob></dob>
-  			<gender></gender>  			  			
-  			<cwcId></cwcId>
-  			<homeAdmissionId></homeAdmissionId>
-  			<parent></parent>
-  			<town></town>
-  			<state></state>
-  			<interviews>
-  				<interview>
-  					<date/>
-  					<text/>
-  				</interview>
-  			</interviews>
-  		</child>
-  	</import> 
-**/

@@ -1,1 +1,2 @@
 play -DapplyEvolutions.default=true
+play -Dconfig.file=C:/depot/src/hugs-admin/conf/dev.application.conf "run"
